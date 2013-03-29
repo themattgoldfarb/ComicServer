@@ -8,35 +8,34 @@
     <meta name="author" content="">
 
     <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="./bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-  <script src="./js/jquery-1.9.1.min.js"></script>
-  <script src="./bootstrap/js/bootstrap.min.js"></script>
+    <script src="./js/jquery-1.9.1.min.js"></script>
+    <script src="./bootstrap/js/bootstrap.min.js"></script>
 
-	<script src="js/zip.js"></script>
-	<script src="js/deflate.js"></script>
-	<script src="js/main.js"></script>
+  	<script src="js/zip.js"></script>
+  	<script src="js/deflate.js"></script>
+  	<script src="js/main.js"></script>
+
+    <style>
+      body {
+        background-color: #222;
+        color: #fff;
+      }
+      body .modal {
+        color: #333;
+      }
+      #introText {
+        margin-top: 100px;
+      }
+    </style>
   </head>
-
-<style>
-#dropbox {
-	width: 300px;
-	height: 100px;
-	background-color: yellow;
-}
-
-#comicImg {
-	width:100%;
-}
-</style>
-</head>
     
-<body onload="init()">
+  <body onload="init()">
 
   <div class="navbar navbar-inverse navbar-static-top">
     <div class="navbar-inner">
@@ -57,29 +56,34 @@
     </div>
   </div>
 
-    <div class="container">
+    <div class="container" id="introText">
+      <div class="row">
+        <div class="span10">
+      		<h1>JavaScript &amp; HTML5 Comic Viewer</h1>
+      		<p class="lead">Simply drag and drop a CBZ file here.</p>
+      
+      		<div id="alertArea"></div>
+      
+          <p>Started as a <a href="http://www.raymondcamden.com/index.cfm/2012/5/29/Building-an-HTML5-Comic-Book-Reader#c2DCDC6B6-924D-59C5-1E7A546B79CAC44F">weekend project</a> by  <a href="http://www.raymondcamden.com/">Raymond Camden</a>, and later developed by Raymond and <a href="http://rkuykendall.com/">Robert Kuykendall</a>.<p>
+        </div>
+      </div>
+            
+  		<div class="modal hide" id="statusModal">
+  		  <div class="modal-header">
+  		    <h3>Status</h3>
+  		  </div>
+  		  <div class="modal-body">
+  		  	<p id="statusModalText"></p>
+  		  </div>
+  		</div>
 
-		<h1>Online JavaScript ComicViewer</h1>
-		<p id="introText">Welcome to the Online JavaScript ComicViewer. To begin, simply drag and drop a CBZ file here.</p>
+  		<p id="buttonArea" style="display:none">
+  		<button id="prevBtn" class="btn">Previous</button> <button id="nextBtn" class="btn">Next</button> <span id="panelCount"></span>
+  		</p>
 
-		<div id="alertArea"></div>
-
-		<div class="modal hide" id="statusModal">
-		  <div class="modal-header">
-		    <h3>Status</h3>
-		  </div>
-		  <div class="modal-body">
-		  	<p id="statusModalText"></p>
-		  </div>
-		</div>
-
-		<p id="buttonArea" style="display:none">
-		<button id="prevBtn" class="btn">Previous</button> <button id="nextBtn" class="btn">Next</button> <span id="panelCount"></span>
-		</p>
-
-		<p>
-		<img id="comicImg" />
-		</p>
+  		<p>
+    		<img id="comicImg" />
+  		</p>
 
     </div> <!-- /container -->
   </body>
