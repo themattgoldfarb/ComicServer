@@ -17,9 +17,9 @@
     <script src="./js/jquery-1.9.1.min.js"></script>
     <script src="./bootstrap/js/bootstrap.min.js"></script>
 
-  	<script src="js/zip.js"></script>
-  	<script src="js/deflate.js"></script>
-  	<script src="js/main.js"></script>
+    <script src="js/zip.js"></script>
+    <script src="js/deflate.js"></script>
+    <script src="js/main.js"></script>
 
     <style>
       body {
@@ -29,13 +29,39 @@
       body .modal {
         color: #333;
       }
+      #comicImages {
+        text-align: center;
+      }
       #introText {
         margin-top: 100px;
+      }
+      
+      .fitVertical {
+        height: 100%;
+        height: -moz-calc(100% - 41px);
+        height: -webkit-calc(100% - 41px);
+        height: calc(100% - 41px);
+        
+        width: auto;
+      }
+      
+      .fitHorizontal {
+        height: auto;
+        width: 100%;
+      }
+      
+      .fitBoth {
+        width: auto;
+        height: auto;
+        max-height: 100%;
+        max-height: -moz-calc(100% - 41px);
+        max-height: -webkit-calc(100% - 41px);
+        max-height: calc(100% - 41px);
       }
     </style>
   </head>
     
-  <body onload="init()">
+  <body onload="init()" style="height: 100%">
 
     <div class="navbar navbar-inverse navbar-static-top">
       <div class="navbar-inner">
@@ -52,6 +78,9 @@
           <ul class="nav">
             <li style="display: none;"><a href="#" title="Left arrow or k" id="prevPanel"><i class="icon-chevron-left icon-white"></i> Previous</a></li>
             <li style="display: none;"><a href="#" title="Right arrow or j" id="nextPanel"><i class="icon-chevron-right icon-white"></i> Next</a></li>
+            <li style="display: none;"><a href="#" title="v key" id="fitVertical"><i class="icon-resize-vertical icon-white"></i> Fit Vertical</a></a></li>
+            <li style="display: none;"><a href="#" title="h key" id="fitHorizontal"><i class="icon-resize-horizontal icon-white"></i> Fit Horizontal</a></a></li>
+            <li style="display: none;"><a href="#" title="b key" id="fitBoth"><i class="icon-move icon-white"></i> Fit Both</a></a></li>
           </ul>
           </div>
         </div>
@@ -61,10 +90,10 @@
     <div class="container" id="introText">
       <div class="row">
         <div class="span10">
-      		<h1>JavaScript &amp; HTML5 Comic Viewer</h1>
-      		<p class="lead">Simply drag and drop a CBZ file here.</p>
+          <h1>JavaScript &amp; HTML5 Comic Viewer</h1>
+          <p class="lead">Simply drag and drop a CBZ file here.</p>
       
-      		<div id="alertArea"></div>
+          <div id="alertArea"></div>
       
           <p>Started as a <a href="http://www.raymondcamden.com/index.cfm/2012/5/29/Building-an-HTML5-Comic-Book-Reader#c2DCDC6B6-924D-59C5-1E7A546B79CAC44F">weekend project</a> by  <a href="http://www.raymondcamden.com/">Raymond Camden</a>, and later developed by Raymond and <a href="http://rkuykendall.com/">Robert Kuykendall</a>.<p>
         </div>
@@ -72,19 +101,19 @@
     </div> <!-- /container -->
 
     <div class="container">            
-  		<div class="modal hide" id="statusModal">
-  		  <div class="modal-header">
-  		    <h3>Uploading your comic.</h3>
-  		  </div>
-  		  <div class="modal-body">
-  		  	<p id="statusModalText"></p>
-  		  </div>
-  		</div>
-
-  		<p>
-    		<img id="comicImg" />
-  		</p>
+      <div class="modal hide" id="statusModal">
+        <div class="modal-header">
+          <h3>Uploading your comic.</h3>
+        </div>
+        <div class="modal-body">
+          <p id="statusModalText"></p>
+        </div>
+      </div>
     </div> <!-- /container -->
+
+    <div id="comicImages">
+      <img id="comicImg" />
+    </div>
 
   </body>
 </html>
