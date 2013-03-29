@@ -99,10 +99,11 @@ function handleFile(file) {
 
 							if(done == images.length) {
 								$("#statusModal").modal("hide");
+
 								//enable buttons
-								$("#buttonArea").show();
-								$("#prevBtn").on("click",prevPanel);
-								$("#nextBtn").on("click",nextPanel);
+                $("ul.nav li").show();
+                $("#prevPanel").on("click",prevPanel);
+                $("#nextPanel").on("click",nextPanel);
 								drawPanel(0);
 							}
 						});
