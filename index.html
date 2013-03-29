@@ -50,6 +50,8 @@
         
         <div class="nav-collapse collapse">
         <ul class="nav">
+          <li style="display: none;"><a href="#" title="Left arrow or k" id="prevPanel"><i class="icon-chevron-left icon-white"></i> Previous</a></li>
+          <li style="display: none;"><a href="#" title="Right arrow or j" id="nextPanel"><i class="icon-chevron-right icon-white"></i> Next</a></li>
         </ul>
         </div>
       </div>
@@ -70,16 +72,12 @@
             
   		<div class="modal hide" id="statusModal">
   		  <div class="modal-header">
-  		    <h3>Status</h3>
+  		    <h3>Uploading your comic.</h3>
   		  </div>
   		  <div class="modal-body">
   		  	<p id="statusModalText"></p>
   		  </div>
   		</div>
-
-  		<p id="buttonArea" style="display:none">
-  		<button id="prevBtn" class="btn">Previous</button> <button id="nextBtn" class="btn">Next</button> <span id="panelCount"></span>
-  		</p>
 
   		<p>
     		<img id="comicImg" />
