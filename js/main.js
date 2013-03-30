@@ -1,7 +1,8 @@
 var images = [];
 var done = 0;
+var display = 1;
 var dir;
-var curPanel;
+var curPanel = 0;
 
 //Generic error handler
 function errorHandler(e) {
@@ -9,7 +10,7 @@ function errorHandler(e) {
   console.dir(e);
 }
 
-function init() {  
+function init() {
   window.webkitStorageInfo.requestQuota(window.TEMPORARY, 20*1024*1024, function(grantedBytes) {
     window.webkitRequestFileSystem(window.TEMPORARY, grantedBytes, onInitFs, errorHandler);
   }, errorHandler);
@@ -36,7 +37,7 @@ function dropHandler(e) {
   if(!e.originalEvent.dataTransfer.files) return;
   var files = e.originalEvent.dataTransfer.files;
   var count = files.length;
- 
+
    if(!count) return;
 
    //Only one file allowed
@@ -56,61 +57,65 @@ function doError(s) {
   $("#alertArea").html(errorBlock);
 }
 
+// Dropbox support
+options = {
+  linkType: "direct",
+  success: function(files) {
+    handleDropboxFile(files[0].link);
+  },
+  cancel: function() { }
+};
+
+
 function handleFile(file) {
+  console.log(file);
   zip.workerScriptsPath = "js/";
 
   zip.createReader(new zip.BlobReader(file), function(reader) {
-    console.log("did create reader");
-      reader.getEntries(function(entries) {
-        console.log("got entries");
-        
+    console.log("Created reader.");
+    reader.getEntries(function(entries) {
+      console.log("Got entries.");
+
       $("#introText").hide();
 
-        //Start a modal for our status
-        var modalString = 'Parsed the CBZ - Saving Images. This takes a <b>long</b> time!';
-        $("#statusModalText").html(modalString);
+      //Start a modal for our status
+      var modalString = 'Parsed the CBZ - Saving Images. This takes a <strong>long</strong> time!';
+      $("#statusModalText").html(modalString);
       $("#statusModal").modal({keyboard:false});
 
-          entries.forEach(function(entry) {
-            if(!entry.directory && entry.filename.indexOf(".jpg") != -1) {
-              //rewrite w/o a path
-              var cleanName = entry.filename;
-              if(cleanName.indexOf("/") >= 0) cleanName = cleanName.split("/").pop();
+      entries.forEach(function(entry) {
+        
+        if(!entry.directory && entry.filename.indexOf(".jpg") != -1) {
+
+          //rewrite w/o a path
+          var cleanName = entry.filename;
+          if(cleanName.indexOf("/") >= 0) cleanName = cleanName.split("/").pop();
+
           dir.getFile(cleanName, {create:true}, function(file) {
             console.log("Yes, I opened "+file.fullPath);
-                images.push({path:file.toURL(), loaded:false})
+            images.push({path:file.toURL(), loaded:false})
+  
             entry.getData(new zip.FileWriter(file), function(e) {
-
               done++;
-              //$("#statusModalText").html("Did "+done+" images out of "+images.length);
-              var perc = Math.floor(done/images.length*100);
+              var perc = Math.floor((done/images.length)*100);
+
               var pString = 'Processing images.';
-              pString += '<div class="progress progress-striped active">';
-              pString += '<div class="bar" style="width: '+perc+'%;"></div>';
-              pString += '</div>';
-              $("#statusModalText").html(pString);
+                  pString += '<div class="progress progress-striped active">';
+                  pString += '<div class="bar" style="width: '+perc+'%;"></div>';
+                  pString += '</div>';
+                  $("#statusModalText").html(pString);
 
               for(var i=0; i<images.length; i++) {
                 if(images[i].path == file.toURL()) {
-                  images[i].loaded = true; 
+                  images[i].loaded = true;
                   break;
-                }                
+                }
               }
 
               if(done == images.length) {
                 $("#statusModal").modal("hide");
+                $(".navbar ul li").show();
 
-                //enable buttons
-                $("ul.nav li").show();
-
-                $("#fitVertical").on("click",fitVertical);                $(document).bind('keydown', 'v', fitVertical);
-
-                $("#fitHorizontal").on("click",fitHorizontal);
-                $(document).bind('keydown', 'h', fitHorizontal);
-
-                $("#fitBoth").on("click",fitBoth);
-                $(document).bind('keydown', 'b', fitBoth);
-                
                 $("#prevPanel").on("click",prevPanel);
                 $(document).bind('keydown', 'left', prevPanel);
                 $(document).bind('keydown', 'k', prevPanel);
@@ -119,46 +124,90 @@ function handleFile(file) {
                 $(document).bind('keydown', 'right', nextPanel);
                 $(document).bind('keydown', 'j', nextPanel);
 
-                drawPanel(0);
+                $("#fitVertical").on("click",fitVertical);
+                $(document).bind('keydown', 'v', fitVertical);
+
+                $("#fitHorizontal").on("click",fitHorizontal);
+                $(document).bind('keydown', 'h', fitHorizontal);
+
+                $("#fitBoth").on("click",fitBoth);
+                $(document).bind('keydown', 'b', fitBoth);
+
+                $("#fullSpread").on("click",fullSpread);
+                $(document).bind('keydown', 'f', fullSpread);
+
+                $("#singlePage").on("click",singleSpread);
+                $(document).bind('keydown', 's', singleSpread);
+
+                spread(1); // drawPanel(0);
               }
             });
-
-          },errorHandler);
-
-            }
-          });
+          }, errorHandler);
+        }
       });
+    });
   }, function(err) {
     doError("Sorry, but unable to read this as a CBR file.");
-      console.dir(err);
+    console.dir(err);
   });
-
 }
+
 
 function drawPanel(num) {
   curPanel = num;
-  $("#comicImg").attr("src",images[num].path);
-  $("#panelCount").html("Panel "+(curPanel+1)+" out of "+images.length);
+
+
+  $("#comicImages img").each(function( index ) {
+    if (num+index >= images.length || num+index < 0) {
+      $(this).hide();
+    } else {
+      $(this).attr("src",images[num+index].path);
+      $(this).show();
+    }
+  });
+
+  $("#panelCount").html("Panel "+(curPanel+display)+" out of "+images.length);
 }
 
 function prevPanel() {
-  if(curPanel > 0) drawPanel(curPanel-1);
+  if(curPanel > 0) drawPanel(curPanel-display);
 }
 
 function nextPanel() {
-  if(curPanel+1 < images.length) drawPanel(curPanel+1);
+  if(curPanel+display < images.length) drawPanel(curPanel+display);
 }
 
 function fitHorizontal() {
-  $("#comicImg").removeClass();
-  $("#comicImg").addClass('fitHorizontal');
+  $("#comicImages img").removeClass();
+  $("#comicImages img").addClass('fitHorizontal');
 }
 
 function fitVertical() {
-  $("#comicImg").removeClass();
-  $("#comicImg").addClass('fitVertical');
+  $("#comicImages img").removeClass();
+  $("#comicImages img").addClass('fitVertical');
 }
 function fitBoth() {
-  $("#comicImg").removeClass();
-  $("#comicImg").addClass('fitBoth');
+  $("#comicImages img").removeClass();
+  $("#comicImages img").addClass('fitBoth');
 }
+
+
+
+function singleSpread() { $("#singlePage").parent().hide(); $("#fullSpread").parent().show(); spread(1); }
+function fullSpread()   { $("#singlePage").parent().show(); $("#fullSpread").parent().hide(); spread(2); }
+function spread(num) {
+  $('body').removeClass('spread'+display);
+  display = num;
+  $('body').addClass('spread'+display);
+
+  $("#comicImages").empty();
+  for(i=0; i < display; i++) {
+    var image = document.createElement("img");
+    $("#comicImages").append(image);
+  }
+
+  drawPanel(curPanel);
+  fitBoth();
+}
+
+
