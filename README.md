@@ -1,7 +1,9 @@
 HTML5 Comic Book Reader
 =======================
 
-A completely browser based CBZ comic reader, built with HTML5 and Javascript. Started as a weekend project by Raymond Camden, and later developed Robert Kuykendall.
+A completely browser based CBZ comic reader, built with HTML5 and Javascript. Started as a [weekend project](http://www.raymondcamden.com/index.cfm/2012/5/29/Building-an-HTML5-Comic-Book-Reader#c2DCDC6B6-924D-59C5-1E7A546B79CAC44F) by [Raymond Camden](http://www.raymondcamden.com/), and later developed [Robert Kuykendall](http://rkuykendall.com/).
+
+http://rkuykendall.com/uploads/WebSlinger/
 
 Features
 --------
