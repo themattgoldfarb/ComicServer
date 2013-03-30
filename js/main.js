@@ -103,12 +103,22 @@ function handleFile(file) {
                 //enable buttons
                 $("ul.nav li").show();
 
-                $("#fitVertical").on("click",fitVertical);
+                $("#fitVertical").on("click",fitVertical);                $(document).bind('keydown', 'v', fitVertical);
+
                 $("#fitHorizontal").on("click",fitHorizontal);
+                $(document).bind('keydown', 'h', fitHorizontal);
+
                 $("#fitBoth").on("click",fitBoth);
+                $(document).bind('keydown', 'b', fitBoth);
                 
                 $("#prevPanel").on("click",prevPanel);
+                $(document).bind('keydown', 'left', prevPanel);
+                $(document).bind('keydown', 'k', prevPanel);
+
                 $("#nextPanel").on("click",nextPanel);
+                $(document).bind('keydown', 'right', nextPanel);
+                $(document).bind('keydown', 'j', nextPanel);
+
                 drawPanel(0);
               }
             });
