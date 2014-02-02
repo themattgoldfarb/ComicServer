@@ -69,6 +69,9 @@ options = {
 
 function handleFile(file) {
   console.log(file);
+  
+  
+  //todo: this should use play to resolve the path instead of assuming it.
   zip.workerScriptsPath = "assets/javascripts/";
 
   zip.createReader(new zip.BlobReader(file), function(reader) {
