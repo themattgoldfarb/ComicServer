@@ -69,7 +69,7 @@ options = {
 
 function handleFile(file) {
   console.log(file);
-  zip.workerScriptsPath = "js/";
+  zip.workerScriptsPath = "assets/javascripts/";
 
   zip.createReader(new zip.BlobReader(file), function(reader) {
     console.log("Created reader.");
