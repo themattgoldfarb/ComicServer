@@ -17,9 +17,13 @@ public class Application extends Controller {
     }
     
     
-    public static Result read2(){
+    public static Result reader(){
     	
-    	return ok(read2.render());
+    	return ok(reader.render(""));
+    }
+    
+    public static Result library(){
+    	return ok(library.render());
     }
 
 }
