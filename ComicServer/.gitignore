@@ -8,9 +8,11 @@ tmp
 dist
 /.idea
 /*.iml
+*.class
 /out
 /.idea_modules
 /.classpath
 /.project
 /RUNNING_PID
 /.settings
+

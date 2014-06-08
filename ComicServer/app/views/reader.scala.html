@@ -1,4 +1,4 @@
-@(message: String)
+@(json: String)
 
 @main("Web Slinger Comic Reader"){
 
@@ -9,17 +9,23 @@
 
 
     <script src="@routes.Assets.at("javascripts/jquery.hotkeys.js")"></script>
-    <script src="@routes.Assets.at("bootstrap/js/bootstrap.min.js")"></script>
+
     <script src="@routes.Assets.at("javascripts/zip.js")"></script>
     <script src="@routes.Assets.at("javascripts/deflate.js")"></script>
-    <script src="@routes.Assets.at("javascripts/main.js")"></script>
+    
+    
+    
+    
+    <script type="text/javascript">
+		var comicJson = @Html(json);
+    </script>
+    
+    <script src="@routes.Assets.at("javascripts/reader.js")"></script>
     
 
 
 } {
-
-
-
+	
 
       <div class="container" id="introText">
         <div class="row">
@@ -46,5 +52,7 @@
   
       <div id="comicImages">
       </div>
+      
+      <hidden >
 
 }
