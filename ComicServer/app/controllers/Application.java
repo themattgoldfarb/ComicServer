@@ -1,13 +1,10 @@
 package controllers;
 
-import play.*;
+import ViewModels.ComicBookViewModel;
+import models.ComicBooks;
 import play.mvc.*;
 import views.html.*;
 
-import java.util.Enumeration;
-import java.util.zip.*;
-import java.util.*;
-import java.awt.Image;
 import java.io.*;
 
 import models.*;
@@ -26,31 +23,29 @@ public class Application extends Controller {
     }
     
     
-    public static Result reader(int zipId ){
+    public static Result reader(int comicBookId ){
     	ZipFileReader f = new ZipFileReader();
-    	UnzipModel um = f.ReadAndParseZip(zipId);
+        ComicBook cb = ComicBook.find.byId(comicBookId);
+        if(cb.numPages == null){
+            cb.numPages = f.NumPages(cb.path, cb.fileName);
+        }
+        ComicBookViewModel cbvm = new ComicBookViewModel(cb);
     	Gson gson = new Gson();
-    	String json = gson.toJson(um);
+    	String json = gson.toJson(cbvm);
     	return ok(reader.render(json));
     }
     
     public static Result library(){
-    	ZipFileReader f = new ZipFileReader();
-    	UnzipModel um = f.GetCovers();
-    	return ok(library.render(um));
+        ComicBooks cb = new ComicBooks();
+        cb.books = ComicBook.find.all();
+        return ok(library.render(cb));
     }
     
-   
-    public static Result page(int zipId, int pageId){
-    	/*try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-    	ZipFileReader f = new ZipFileReader();
-    	InputStream is = f.GetPage(zipId, pageId);
-    	return ok(is);
+    public static Result page(int comicBookId, int pageId){
+        ZipFileReader f = new ZipFileReader();
+        ComicBook cb = ComicBook.find.byId(comicBookId);
+        InputStream is = f.GetPage(cb.path, cb.fileName, pageId);
+        return ok(is);
     }
 }
 

@@ -1,24 +1,22 @@
+@(model: ComicBooks)
 
-
-@(model: UnzipModel)
-
-@import models.UnzipModel;
 @import java.net.URLEncoder;
-
+@import models.ComicBooks;
 
 @main("Web Slinger Comic Reader"){
-	
+
 } {
 
-	<div class="row">
-	@for(page <- model.pages){
-		<div class="col-xs-12 col-md-2">
-			@cover("/page/"+page.zipId+"/"+page.pageId+"/")(page.zipName)(page.zipId)
+<div class="row">
+    @for(book <- model.books){
+    <div class="col-xs-12 col-md-2">
+			<span>
+			    @cover("/page/"+book.id+"/"+book.coverIndex+"/")(book.fileName)(book.id)
+            </span>
+    </div>
 
-		</div>
-		
-	} 
-	</div>
+    }
+</div>
 
 }
 

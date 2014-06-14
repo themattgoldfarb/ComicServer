@@ -15,8 +15,7 @@ import java.util.zip.ZipFile;
 
 import javax.imageio.ImageIO;
 
-import models.UnzipModel;
-import models.ZipPage;
+
 
 public class ZipFileReader{
 	
@@ -35,7 +34,7 @@ public class ZipFileReader{
 			Files.walk(Paths.get(dir)).forEach(filePath -> {
 				if( Files.isRegularFile(filePath)){
 					String filename = filePath.toString();
-					if(filename.contains(".cbz")){
+					if(filename.contains(".cbz") || filename.contains(".cbr")){
 						files.add(filename);
 					}
 				}
@@ -52,7 +51,6 @@ public class ZipFileReader{
 		return a[a.length-1];
 	}
 	
-	
 	public InputStream GetPage(int zipId, int pageId){
 		File file = null;
 		Image image = null;
@@ -64,15 +62,18 @@ public class ZipFileReader{
 		
 		try {
 			File f = new File(zips.get(zipId));
-			ZipFile zip = new ZipFile(f);
-			ZipEntry entry = null;
-			
-			for (Enumeration<? extends ZipEntry> e = zip.entries(); e.hasMoreElements() && pageId >= 0; pageId--){
-				entry = (ZipEntry) e.nextElement();
-				String entryName = entry.getName();	
+			if(zips.get(zipId).contains(".cbz")){
+				ZipFile zip = new ZipFile(f);
+				ZipEntry entry = null;
+				
+				for (Enumeration<? extends ZipEntry> e = zip.entries(); e.hasMoreElements() && pageId >= 0; pageId--){
+					entry = (ZipEntry) e.nextElement();
+					String entryName = entry.getName();	
+				}
+				image = ImageIO.read(zip.getInputStream(entry));
+				is = zip.getInputStream(entry);
 			}
-			image = ImageIO.read(zip.getInputStream(entry));
-			is = zip.getInputStream(entry);
+
 		} catch (ZipException e){
 			
 		} catch (IOException e){
@@ -81,67 +82,51 @@ public class ZipFileReader{
 		
 		return is;	
 	}
-	
-	public UnzipModel GetCovers(){
-		ArrayList<ZipPage> pages = new ArrayList<ZipPage>();
-		
-		for(int zipId = 0; zipId < zips.size(); zipId++){
-			String fileName = zips.get(zipId);
-			int filesRead = 0;
-			String displayFileName = lastSplit(fileName);
-			try {
-				File f = new File(fileName);
-				ZipFile zip = new ZipFile(f);
-				for (Enumeration<? extends ZipEntry> e = zip.entries(); e.hasMoreElements(); ){
-					ZipEntry entry = (ZipEntry) e.nextElement();
-					if(!entry.isDirectory()){
-						String entryName = lastSplit(entry.getName());
-						pages.add(new ZipPage(zipId, filesRead, entryName, displayFileName));
-						break;
-					}
-					filesRead++;
-				}
-			} catch (ZipException e){
-				
-			} catch (IOException e){
-				
-			}
-			
-		}
-		UnzipModel um = new UnzipModel();
-		um.pages = pages;
-		um.message = "";
-		return um;
-	}
-	
 
-	public UnzipModel ReadAndParseZip(int zipId){
-		int filesRead = 0;
-		String fileName = zips.get(zipId);
-		String displayFileName = lastSplit(fileName);
-		ArrayList<ZipPage> pages = new ArrayList<ZipPage>();
-		if(zips.size()<=zipId){
-			return null;	//throw new Exception("Invalid Zip Id");
-		}
-		try {
-			File f = new File(fileName);
-			ZipFile zip = new ZipFile(f);
-			for (Enumeration<? extends ZipEntry> e = zip.entries(); e.hasMoreElements(); ){
-				ZipEntry entry = (ZipEntry) e.nextElement();
-				if(!entry.isDirectory()){
-					String entryName = lastSplit(entry.getName());
-					pages.add(new ZipPage(zipId, filesRead, entryName, displayFileName));
-				}
-				filesRead++;
-			}
-		} catch (ZipException e){
-			
-		} catch (IOException e){
-			
-		}
-		UnzipModel um = new UnzipModel();
-		um.pages = pages;
-		um.message = filesRead + " files read";
-		return um;
-	}
+    public InputStream GetPage(String path, String fileName, int pageId){
+        InputStream is = null;
+
+        try {
+            File f = new File(path+"/"+fileName);
+            if(fileName.contains(".cbz")){
+                ZipFile zip = new ZipFile(f);
+                ZipEntry entry = null;
+
+                for (Enumeration<? extends ZipEntry> e = zip.entries(); e.hasMoreElements() && pageId >= 0; pageId--){
+                    entry =  e.nextElement();
+                }
+                is = zip.getInputStream(entry);
+            }
+
+        } catch (ZipException e){
+
+        } catch (IOException e){
+
+        }
+
+        return is;
+    }
+
+	
+    public int NumPages(String path, String fileName){
+        int filesRead = 0;
+        String fullName = path +"/"+fileName;
+        try {
+            File f = new File(fullName);
+            ZipFile zip = new ZipFile(f);
+            for (Enumeration<? extends ZipEntry> e = zip.entries(); e.hasMoreElements(); ){
+                ZipEntry entry = e.nextElement();
+                if(!entry.isDirectory()){
+                    String entryName = lastSplit(entry.getName());
+                    filesRead++;
+                }
+            }
+        } catch (ZipException e){
+
+        } catch (IOException e){
+
+        }
+        return filesRead;
+    }
+
 }
