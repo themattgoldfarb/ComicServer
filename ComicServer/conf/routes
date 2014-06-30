@@ -5,6 +5,7 @@
 # Home page
 GET     /                           controllers.Application.index()
 GET		/read						controllers.Application.read()
+GET		/app						controllers.Application.app()
 GET		/reader/$comicBookId<[0-9]+>/						controllers.Application.reader(comicBookId: java.lang.Integer)
 GET		/library					controllers.Application.library()
 GET		/page/$comicBookId<[0-9]+>/$pageId<[0-9]+>/	controllers.Application.page(comicBookId: java.lang.Integer, pageId: java.lang.Integer)

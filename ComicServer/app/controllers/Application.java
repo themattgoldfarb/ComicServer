@@ -47,5 +47,9 @@ public class Application extends Controller {
         InputStream is = f.GetPage(cb.path, cb.fileName, pageId);
         return ok(is);
     }
+
+    public static Result app(){
+        return ok(app.render("hello"));
+    }
 }
 
