@@ -1,6 +1,7 @@
 package controllers;
 
 import ViewModels.ComicBookViewModel;
+import ViewModels.LibraryViewModel;
 import models.ComicBooks;
 import play.mvc.*;
 import views.html.*;
@@ -48,8 +49,21 @@ public class Application extends Controller {
         return ok(is);
     }
 
-    public static Result app(){
-        return ok(app.render("hello"));
+    public static Result app()
+    {
+        ComicBooks cb = new ComicBooks();
+        cb.books = ComicBook.find.all();
+        LibraryViewModel library = new LibraryViewModel(cb);
+        Gson gson = new Gson();
+        String json = gson.toJson(library);
+        return ok(app.render(json));
+    }
+
+    public static Result login(){
+        return ok(
+                login.render()
+        );
+
     }
 }
 

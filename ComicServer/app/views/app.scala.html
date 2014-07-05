@@ -1,4 +1,4 @@
-@(message: String)
+@(json: String)
 
 @main("Web Slinger Comic Reader"){
 
@@ -6,7 +6,44 @@
     <script src="@routes.Assets.at("backbone.marionette/backbone.js")"></script>
     <script src="@routes.Assets.at("backbone.marionette/backbone.marionette.js")"></script>
     <script src="@routes.Assets.at("appscripts/app.js")"></script>
+    <script src="@routes.Assets.at("appscripts/Models/ComicModel.js")"></script>
+    <script src="@routes.Assets.at("appscripts/Models/LibraryModel.js")"></script>
+    <script src="@routes.Assets.at("appscripts/Views/ComicView.js")"></script>
+    <script src="@routes.Assets.at("appscripts/Views/LibraryView.js")"></script>
+
+    <script type="text/template" id ="LibraryTemplate">
+        <div class="row" id="LibraryView">
+        </div>
+    </script>
+
+    <script type="text/template" id="ComicTemplate">
+        <div class="col-xs-12 col-md-2">
+                    <span>
+                        <div class = "cover-container thumbnail">
+                            <a href="/reader/<%= id %>/">
+                                <img class="img-cover" src = "/page/<%=id%>/<%=coverIndex%>/" alt="<%=fileName%>"></src>
+                                <div class="caption">
+                                    <span><%=fileName%></span>
+                                </div>
+                            </a>
+                        </div>
+                </span>
+        </div>
+    </script>
+
+    <script type="text/javascript">
+		var libraryJson = @Html(json);
+        $(document).ready(function(){
+            var library = new LibraryModel(libraryJson.books);
+            app.start({library: library});
+        });
+    </script>
+
 } {
+
+
+
+
 
 
 
