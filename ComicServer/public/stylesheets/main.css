@@ -124,7 +124,13 @@
 			.show-side-bar .scroll-container{
 				left:300px;
 			}
-			
+
+			.top-bar{
+			    display:none;
+			}
+			.show-top-bar .top-bar{
+			    display:block;
+			}
 			
 			.action-bar a {
 				color:#999;
@@ -149,6 +155,12 @@
 				border:#000;
 				color:#999;
 			}
+
+			.cover-box{
+			    width:240px;
+			}
+
+
 			
 			.cover-container.thumbnail .caption{
 				color:#B6B4B4;

@@ -1,3 +1,4 @@
 LibraryModel = Backbone.Collection.extend({
-    model: ComicModel
+    model: ComicModel,
+    url: "/Library"
 });

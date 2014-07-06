@@ -1,7 +1,8 @@
 window.app = new Backbone.Marionette.Application();
 
 app.addRegions({
-    mainRegion: "#main-container"
+    mainRegion: "#main-container",
+    sideBarRegion: "#side-bar-container"
 })
 
 app.on('initialize:after', function(){
@@ -9,10 +10,40 @@ app.on('initialize:after', function(){
 
 })
 
+
+
 app.addInitializer(function(options) {
-    var libraryView = new LibraryView({
-        collection: options.library
-    });
-    app.mainRegion.show(libraryView);
+    app.library = options.library;
+
+    app.showLibrary(options);
+    app.showSideBar(options);
 })
 
+app.showLibrary = function(options){
+    app.libraryView = new LibraryView({
+        collection: app.library
+    });
+    app.mainRegion.show(app.libraryView);
+}
+
+app.showSideBar = function(options){
+    var sideBarView = new SideBarView({});
+    app.sideBarRegion.show(sideBarView);
+}
+
+app.showReader = function(id){
+
+    var readerView = new ReaderView({
+        model: app.library.get(id)
+    });
+    app.reader=readerView;
+    app.mainRegion.show(readerView);
+}
+
+router = new Backbone.Marionette.AppRouter({
+    controller: app,
+    appRoutes: {
+        "reader/:id/" : "showReader",
+        "library" : "showLibrary"
+    }
+});

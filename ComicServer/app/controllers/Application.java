@@ -35,27 +35,67 @@ public class Application extends Controller {
     	String json = gson.toJson(cbvm);
     	return ok(reader.render(json));
     }
-    
-    public static Result library(){
+
+    public static Result Library(){
+        String json = LibraryJson();
+        return ok(json);
+    }
+
+    public static Result LibraryBook(int comicBookId){
+        ZipFileReader f = new ZipFileReader();
+        ComicBook cb = ComicBook.find.byId(comicBookId);
+        if(cb.numPages == null){
+            cb.numPages = f.NumPages(cb.path, cb.fileName);
+        }
+        ComicBookViewModel cbvm = new ComicBookViewModel(cb);
+        Gson gson = new Gson();
+        String json = gson.toJson(cbvm);
+        return ok(json);
+    }
+
+    public static Result libraryOld(){
+
         ComicBooks cb = new ComicBooks();
         cb.books = ComicBook.find.all();
         return ok(library.render(cb));
     }
     
     public static Result page(int comicBookId, int pageId){
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         ZipFileReader f = new ZipFileReader();
         ComicBook cb = ComicBook.find.byId(comicBookId);
         InputStream is = f.GetPage(cb.path, cb.fileName, pageId);
         return ok(is);
     }
 
-    public static Result app()
-    {
+    private static String LibraryJson(){
+        ZipFileReader f = new ZipFileReader();
         ComicBooks cb = new ComicBooks();
         cb.books = ComicBook.find.all();
+        for(ComicBook book: cb.books){
+            if(book.numPages == null){
+                book.numPages = f.NumPages(book.path, book.fileName);
+            }
+        }
         LibraryViewModel library = new LibraryViewModel(cb);
         Gson gson = new Gson();
         String json = gson.toJson(library);
+        return json;
+    }
+
+    public static Result app()
+    {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        String json = LibraryJson();
         return ok(app.render(json));
     }
 
