@@ -9,9 +9,10 @@
         
         <script src="@routes.Assets.at("javascripts/jquery-1.9.1.min.js")" type="text/javascript"></script>
         
-	    <link href="@routes.Assets.at("bootstrap-3.1.1/css/bootstrap.css")" rel="stylesheet">
+	    <link href="@routes.Assets.at("bootstrap/css/bootstrap.css")" rel="stylesheet">
+	    <link href="@routes.Assets.at("bootstrap/css/bootstrap.css")" rel="stylesheet">
 	    <link href="@routes.Assets.at("stylesheets/main.css")" rel="stylesheet">
-	    <script src="@routes.Assets.at("bootstrap-3.1.1/js/bootstrap.min.js")"></script>
+	    <script src="@routes.Assets.at("bootstrap/js/bootstrap.min.js")"></script>
 	    <script src="@routes.Assets.at("javascripts/main.js")"></script>
 	    
 	    
@@ -41,9 +42,10 @@
 					    
 					    
 					    <ul class = "nav navbar-nav">
-							<li><a class="navbar-brand" href="/app#">Web Slinger Comic Reader</a></li>
-							<li><a class="navbar-brand" href="/library#">Library</a></li>
-							<li style="display: none;"><a href="#" title="Left arrow or k" id="prevPanel"><i class="glyphicon glyphicon-chevron-right"></i> Previous</a></li>
+							<li><a class="navbar-brand" href="/app">Web Slinger Comic Reader</a></li>
+							<li><a class="navbar-brand" href="#library">Library</a></li>
+							<li><a class="navbar-brand" href="#addModal" data-toggle="modal">Add</a></li>
+							<li style="display: none;"><a href="#" title="Left arrow or k" id="prevPanel"><span class="glyphicon glyphicon-chevron-right"></span> Previous</a></li>
 							<li style="display: none;"><a href="#" title="Right arrow or j" id="nextPanel"><i class="glyphicon glyphicon-chevron-right"></i> Next</a></li>
 							<li style="display: none;"><a href="#" title="v key" id="fitVertical"><i class="glyphicon glyphicon-resize-vertical"></i> Fit Vertical</a></a></li>
 							<li style="display: none;"><a href="#" title="h key" id="fitHorizontal"><i class="glyphicon glyphicon-resize-horizontal"></i> Fit Horizontal</a></a></li>
@@ -64,17 +66,24 @@
 				<div class="action-bar-nav">
 					<ul class = "nav action-bar-nav">
 						<li><a class="navbar-link" id="expand-side-bar">
-							<span class="expand-side-bar glyphicon glyphicon glyphicon-circle-arrow-right"></span>
-							<span class="shrink-side-bar glyphicon glyphicon glyphicon-circle-arrow-left"></span>
+							<span class="expand-side-bar glyphicon glyphicon-circle-arrow-right"></span>
+							<span class="shrink-side-bar glyphicon glyphicon-circle-arrow-left"></span>
 						</a></li>
 						
 					</ul>
 				</div>
 			</div>
-			<div class="scroll-container" id = "main-container">
-				
+
+			<div class="scroll-container" >
+                <div class="container-fluid" id ="main-container">
 					    @content
+                </div>
 				
+			</div>
+
+			<div id="modal-container">
+                <div id = "addModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+                </div>
 			</div>
 		
 		</div>

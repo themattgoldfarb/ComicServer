@@ -10,9 +10,7 @@
 			h1 {
 			  color: #fff;
 			}
-			body .modal {
-			  color: #333;
-			}
+
 			#comicImages {
 			  text-align: center;
 			}
@@ -108,7 +106,28 @@
 			.show-top-bar .scroll-container, .show-top-bar .side-bar {
 				top:50px;
 			}
-			
+
+			.addFolderContainer{
+			    max-width:600px;
+			}
+
+            .addFolderRow{
+                border-radius:8px;
+            }
+
+            .addFolderRow>a{
+                color:#999
+            }
+
+			.addFolderRow:nth-child(even) {
+			    background-color: #333;
+			}
+
+			.addFolderRow:nth-child(odd) {
+			    background-color: #444;
+			}
+
+
 			#expand-side-bar > .expand-side-bar{
 				display:inline-block;
 			}
@@ -148,12 +167,17 @@
 				max-width:200px;
 				height:auto;
 				max-height:200px;
+				margin-left:auto;
+				margin-right:auto;
 			}
 			
 			.cover-container.thumbnail{
 				background-color: #3a3a3a;
 				border:#000;
 				color:#999;
+			}
+			.cover-container>a{
+			    width:auto;
 			}
 
 			.cover-box{
@@ -165,3 +189,11 @@
 			.cover-container.thumbnail .caption{
 				color:#B6B4B4;
 			}
+
+			.modal-content{
+			    background-color:#333;
+			}
+
+			.modal-header {
+              border-bottom: 1px solid #555;
+            }

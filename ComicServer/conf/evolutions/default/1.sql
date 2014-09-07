@@ -2,7 +2,7 @@
 
 # --- !Ups
 
-create table comic_Book (
+create table comic_book (
     id          int not null,
     file_name    varchar(255),
     path        varchar(1000),

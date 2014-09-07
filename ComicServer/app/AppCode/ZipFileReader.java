@@ -1,10 +1,14 @@
 package AppCode;
 
+import ViewModels.FilesViewModel;
+
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,11 +28,36 @@ public class ZipFileReader{
 	
 	public ZipFileReader(){
 		//zips.add("/home/matt/comics/Amazing Spider-Man v1 #222.cbz");
-		zips = readDirectory(comicDir);
+		zips = readDirectoryForZips(comicDir);
 		
 	}
-	
-	private ArrayList<String> readDirectory(String dir){
+
+    public FilesViewModel readDirectory(String dir){
+        FilesViewModel viewModel = new FilesViewModel();
+        viewModel.directory = dir;
+        Path parent = Paths.get(dir).getParent();
+        if(parent!=null) {
+            viewModel.parent = parent.toString();
+        }
+        try{
+            Files.list(Paths.get(dir)).forEach(filePath -> {
+                if (Files.isDirectory(filePath)) {
+                    viewModel.directories.add(filePath.getFileName().toString());
+                } else if (Files.isRegularFile(filePath)) {
+                    viewModel.files.add(filePath.getFileName().toString());
+                }
+            });
+
+        }
+        catch (IOException e){
+
+        }
+        Collections.sort(viewModel.directories);
+        Collections.sort(viewModel.files);
+        return viewModel;
+    }
+
+	private ArrayList<String> readDirectoryForZips(String dir){
 		ArrayList<String> files = new ArrayList<String>();
 		try{
 			Files.walk(Paths.get(dir)).forEach(filePath -> {

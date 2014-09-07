@@ -15,8 +15,13 @@ app.on('initialize:after', function(){
 app.addInitializer(function(options) {
     app.library = options.library;
 
-    app.showLibrary(options);
+   // app.showLibrary(options);
     app.showSideBar(options);
+
+        app.addView = new AddView({
+    //        collection: app.library
+        });
+        app.mainRegion.show(app.addView);
 })
 
 app.showLibrary = function(options){
@@ -40,10 +45,18 @@ app.showReader = function(id){
     app.mainRegion.show(readerView);
 }
 
+app.showAdd = function(){
+    app.addView = new AddView({
+//        collection: app.library
+    });
+    app.mainRegion.show(app.addView);
+}
+
 router = new Backbone.Marionette.AppRouter({
     controller: app,
     appRoutes: {
         "reader/:id/" : "showReader",
-        "library" : "showLibrary"
+        "library" : "showLibrary",
+        "add" : "showAdd"
     }
 });

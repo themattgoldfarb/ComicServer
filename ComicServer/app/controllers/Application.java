@@ -1,6 +1,7 @@
 package controllers;
 
 import ViewModels.ComicBookViewModel;
+import ViewModels.FilesViewModel;
 import ViewModels.LibraryViewModel;
 import models.ComicBooks;
 import play.mvc.*;
@@ -53,6 +54,14 @@ public class Application extends Controller {
         return ok(json);
     }
 
+    public static Result Files(String path){
+        ZipFileReader f = new ZipFileReader();
+        FilesViewModel vm = f.readDirectory(path);
+        Gson gson = new Gson();
+        String json = gson.toJson(vm);
+        return ok(json);
+    }
+
     public static Result libraryOld(){
 
         ComicBooks cb = new ComicBooks();
@@ -61,11 +70,6 @@ public class Application extends Controller {
     }
     
     public static Result page(int comicBookId, int pageId){
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         ZipFileReader f = new ZipFileReader();
         ComicBook cb = ComicBook.find.byId(comicBookId);
         InputStream is = f.GetPage(cb.path, cb.fileName, pageId);
@@ -89,12 +93,6 @@ public class Application extends Controller {
 
     public static Result app()
     {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         String json = LibraryJson();
         return ok(app.render(json));
     }
