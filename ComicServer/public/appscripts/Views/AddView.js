@@ -13,13 +13,11 @@ AddView = Backbone.Marionette.View.extend({
 
     changeModel: function(uri){
         var self = this;
-        alert(uri);
         this.model.urlRoot= '/FileManager/readPath/' + encodeURIComponent(uri)+'/';
         this.model.fetch({success:function(){self.renderModel();}});
     },
 
     addDirectory: function(uri){
-        alert(uri);
     },
 
     renderModel: function(){
