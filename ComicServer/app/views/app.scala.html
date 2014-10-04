@@ -65,7 +65,7 @@
                       <li class="addFolderRow" dir="<%=parent%>"><a><i class="glyphicon glyphicon-folder-open"/> .. </a> </li>
                     <% }%>
                     <% _.each(directories, function(dir){ %>
-                    <li class="addFolderRow" dir="<%=directory+'/'+dir%>"><a><i class="glyphicon glyphicon-folder-open"/> <%=dir%></a> </li>
+                    <li class="addFolderRow" dir="<%=directory+dir%>"><a><i class="glyphicon glyphicon-folder-open"/> <%=dir%></a> </li>
                     <% }); %>
                   </ul>
                  </div>

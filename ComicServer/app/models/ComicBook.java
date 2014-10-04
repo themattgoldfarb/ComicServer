@@ -12,6 +12,22 @@ import javax.persistence.Id;
 
 @Entity
 public class ComicBook extends Model {
+
+    public ComicBook (String fileName, String path,
+                      int coverIndex, Integer numPages,
+                      String seriesName, int issueNumber){
+        this.fileName = fileName;
+        this.path = path;
+        this.coverIndex = coverIndex;
+        this.numPages = numPages;
+        this.seriesName = seriesName;
+        this.issueNumber = issueNumber;
+    }
+
+    public ComicBook(){
+
+    }
+
     @Id
     public int id;
 

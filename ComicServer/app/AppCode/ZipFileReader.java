@@ -42,9 +42,11 @@ public class ZipFileReader{
         try{
             Files.list(Paths.get(dir)).forEach(filePath -> {
                 if (Files.isDirectory(filePath)) {
-                    viewModel.directories.add(filePath.getFileName().toString());
+                    viewModel.directories.add(filePath.getFileName().toString()+"/");
                 } else if (Files.isRegularFile(filePath)) {
-                    viewModel.files.add(filePath.getFileName().toString());
+                    if(filePath.getFileName().toString().endsWith("cbz")) {
+                        viewModel.files.add(filePath.getFileName().toString());
+                    }
                 }
             });
 

@@ -3,6 +3,7 @@ package controllers;
 import AppCode.ZipFileReader;
 import ViewModels.FilesViewModel;
 import com.google.gson.Gson;
+import models.ComicBook;
 import play.mvc.Controller;
 import views.html.read;
 import play.mvc.Result;
@@ -21,7 +22,19 @@ public class FileManager extends Controller {
     }
 
     public static Result addPath(String path){
-        
+        ZipFileReader f = new ZipFileReader();
+        FilesViewModel vm = f.readDirectory(path);
+        for(String file : vm.files ){
+            ComicBook cb = new ComicBook(
+                    file,
+                    vm.directory,
+                    1,
+                    f.NumPages(vm.directory, file),
+                    file,
+                    1
+            );
+            cb.save();
+        }
         return ok();
     }
 }

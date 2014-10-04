@@ -3,7 +3,7 @@
 # --- !Ups
 
 create table comic_book (
-    id          int not null,
+    id          int not null auto_increment,
     file_name    varchar(255),
     path        varchar(1000),
     cover_index     int default 1,
