@@ -12,6 +12,8 @@ import java.io.*;
 import models.*;
 import AppCode.*;
 import com.google.gson.Gson;
+import views.html.read;
+
 
 public class Application extends Controller {
 
@@ -21,7 +23,7 @@ public class Application extends Controller {
     
     public static Result read() {
     	return ok(read.render());
-    	
+
     }
     
     
@@ -54,13 +56,6 @@ public class Application extends Controller {
         return ok(json);
     }
 
-    public static Result Files(String path){
-        ZipFileReader f = new ZipFileReader();
-        FilesViewModel vm = f.readDirectory(path);
-        Gson gson = new Gson();
-        String json = gson.toJson(vm);
-        return ok(json);
-    }
 
     public static Result libraryOld(){
 

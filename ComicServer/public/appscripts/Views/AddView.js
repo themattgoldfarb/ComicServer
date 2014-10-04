@@ -13,7 +13,8 @@ AddView = Backbone.Marionette.View.extend({
 
     changeModel: function(uri){
         var self = this;
-        this.model.urlRoot= 'Files/' + encodeURIComponent(uri)+'/';
+        alert(uri);
+        this.model.urlRoot= '/FileManager/readPath/' + encodeURIComponent(uri)+'/';
         this.model.fetch({success:function(){self.renderModel();}});
     },
 
@@ -27,7 +28,7 @@ AddView = Backbone.Marionette.View.extend({
                 var container = $("#addModal");
                 container.html(html);
                 container.find(".addFolderRow").click(function(c){
-                    self.changeModel(c.currentTarget.dir);
+                    self.changeModel($(c.currentTarget).attr('dir'));
                 });
                 container.find("#addDirectoryButton").click(function(c){
                     self.addDirectory(c.currentTarget.dir);

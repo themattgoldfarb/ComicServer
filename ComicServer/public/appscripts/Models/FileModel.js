@@ -1,5 +1,5 @@
 FileModel = Backbone.Model.extend({
-    urlRoot: 'Files/%2F/',
+    urlRoot: 'FileManager/readPath/%2F/',
     id: ''
 });
 
