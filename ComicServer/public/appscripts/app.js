@@ -46,9 +46,11 @@ app.showReader = function(id){
 }
 
 app.showAdd = function(){
+    var self = this;
     app.addView = new AddView({
 //        collection: app.library
     });
+    app.addView.refreshLibrary = function(){ app.showLibrary(); };
     app.mainRegion.show(app.addView);
 }
 

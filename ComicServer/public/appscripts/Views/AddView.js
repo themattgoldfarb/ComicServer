@@ -5,9 +5,10 @@ AddView = Backbone.Marionette.View.extend({
     template: '#AddTemplate',
     model: new FileModel(),
 
-    initialize: function(){
+    initialize: function(options){
         var self = this;
         this.model.fetch({success:function(){self.renderModel();}});
+
 
     },
 
@@ -19,7 +20,7 @@ AddView = Backbone.Marionette.View.extend({
 
     addDirectory: function(uri){
         var self = this;
-        this.model.save();
+        this.model.save(null,{success: function(){$(document).trigger('change:library')}});
     },
 
     renderModel: function(){

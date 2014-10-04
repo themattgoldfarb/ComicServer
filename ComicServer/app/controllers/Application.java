@@ -40,7 +40,9 @@ public class Application extends Controller {
     }
 
     public static Result Library(){
-        String json = LibraryJson();
+        LibraryViewModel library = getLibraryViewModel();
+        Gson gson = new Gson();
+        String json = gson.toJson(library.books);
         return ok(json);
     }
 
@@ -64,14 +66,15 @@ public class Application extends Controller {
         return ok(library.render(cb));
     }
     
-    public static Result page(int comicBookId, int pageId){
+    public static Result page(int comicBookId, int pageId) {
         ZipFileReader f = new ZipFileReader();
         ComicBook cb = ComicBook.find.byId(comicBookId);
         InputStream is = f.GetPage(cb.path, cb.fileName, pageId);
         return ok(is);
     }
 
-    private static String LibraryJson(){
+
+    private static LibraryViewModel getLibraryViewModel(){
         ZipFileReader f = new ZipFileReader();
         ComicBooks cb = new ComicBooks();
         cb.books = ComicBook.find.all();
@@ -81,14 +84,14 @@ public class Application extends Controller {
             }
         }
         LibraryViewModel library = new LibraryViewModel(cb);
-        Gson gson = new Gson();
-        String json = gson.toJson(library);
-        return json;
+        return library;
     }
 
     public static Result app()
     {
-        String json = LibraryJson();
+        LibraryViewModel library = getLibraryViewModel();
+        Gson gson = new Gson();
+        String json = gson.toJson(library);
         return ok(app.render(json));
     }
 
