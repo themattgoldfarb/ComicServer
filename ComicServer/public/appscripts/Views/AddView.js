@@ -31,7 +31,7 @@ AddView = Backbone.Marionette.View.extend({
                     self.changeModel($(c.currentTarget).attr('dir'));
                 });
                 container.find("#addDirectoryButton").click(function(c){
-                    self.addDirectory(c.currentTarget.dir);
+                    self.addDirectory($(c.currentTarget).attr('dir'));
                 });
     }
 
