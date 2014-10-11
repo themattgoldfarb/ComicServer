@@ -2,21 +2,30 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
+
+
 # Home page
 GET     /                           controllers.Application.index()
 GET     /login                      controllers.Application.login()
 GET		/read						controllers.Application.read()
 GET		/app						controllers.Application.app()
-GET		/reader/$comicBookId<[0-9]+>/						controllers.Application.reader(comicBookId: java.lang.Integer)
 GET		/libraryOld					controllers.Application.libraryOld()
 GET     /Library                    controllers.Application.Library()
 GET     /Library/$comicBookId<[0-9]+>/  controllers.Application.LibraryBook(comicBookId: java.lang.Integer)
 
+
+#PageReader
 GET		/page/$comicBookId<[0-9]+>/$pageId<[0-9]+>/	controllers.PageReader.page(comicBookId: java.lang.Integer, pageId: java.lang.Integer)
 GET		/thumbnail/$comicBookId<[0-9]+>/$pageId<[0-9]+>/	controllers.PageReader.thumbnail(comicBookId: java.lang.Integer, pageId: java.lang.Integer)
+GET		/reader/$comicBookId<[0-9]+>/						controllers.PageReader.reader(comicBookId: java.lang.Integer)
 
+
+#FileManager
 GET     /FileManager/path/:path/    controllers.FileManager.readPath(path: String)
 POST    /FileManager/path/:path/    controllers.FileManager.addPath(path: String)
+
+
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

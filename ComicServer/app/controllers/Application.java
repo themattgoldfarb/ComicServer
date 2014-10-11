@@ -24,24 +24,34 @@ public class Application extends Controller {
     public static Result index() {
         return ok(index.render("Your new application is ready."));
     }
-    
+
+
+    public static Result app()
+    {
+        LibraryViewModel library = getLibraryViewModel();
+        Gson gson = new Gson();
+        String json = gson.toJson(library);
+        return ok(app.render(json));
+    }
+
     public static Result read() {
     	return ok(read.render());
+    }
+
+    public static Result libraryOld(){
+        ComicBooks cb = new ComicBooks();
+        cb.books = ComicBook.find.all();
+        return ok(library.render(cb));
+    }
+
+    public static Result login(){
+        return ok(
+                login.render()
+        );
 
     }
     
-    
-    public static Result reader(int comicBookId ){
-    	ZipFileReader f = new ZipFileReader();
-        ComicBook cb = ComicBook.find.byId(comicBookId);
-        if(cb.numPages == null){
-            cb.numPages = f.NumPages(cb.path, cb.fileName);
-        }
-        ComicBookViewModel cbvm = new ComicBookViewModel(cb);
-    	Gson gson = new Gson();
-    	String json = gson.toJson(cbvm);
-    	return ok(reader.render(json));
-    }
+
 
     public static Result Library(){
         LibraryViewModel library = getLibraryViewModel();
@@ -63,12 +73,6 @@ public class Application extends Controller {
     }
 
 
-    public static Result libraryOld(){
-
-        ComicBooks cb = new ComicBooks();
-        cb.books = ComicBook.find.all();
-        return ok(library.render(cb));
-    }
 
 
 
@@ -86,19 +90,7 @@ public class Application extends Controller {
         return library;
     }
 
-    public static Result app()
-    {
-        LibraryViewModel library = getLibraryViewModel();
-        Gson gson = new Gson();
-        String json = gson.toJson(library);
-        return ok(app.render(json));
-    }
 
-    public static Result login(){
-        return ok(
-                login.render()
-        );
 
-    }
 }
 
