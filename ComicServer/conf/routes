@@ -11,7 +11,9 @@ GET		/reader/$comicBookId<[0-9]+>/						controllers.Application.reader(comicBook
 GET		/libraryOld					controllers.Application.libraryOld()
 GET     /Library                    controllers.Application.Library()
 GET     /Library/$comicBookId<[0-9]+>/  controllers.Application.LibraryBook(comicBookId: java.lang.Integer)
-GET		/page/$comicBookId<[0-9]+>/$pageId<[0-9]+>/	controllers.Application.page(comicBookId: java.lang.Integer, pageId: java.lang.Integer)
+
+GET		/page/$comicBookId<[0-9]+>/$pageId<[0-9]+>/	controllers.PageReader.page(comicBookId: java.lang.Integer, pageId: java.lang.Integer)
+GET		/thumbnail/$comicBookId<[0-9]+>/$pageId<[0-9]+>/	controllers.PageReader.thumbnail(comicBookId: java.lang.Integer, pageId: java.lang.Integer)
 
 GET     /FileManager/path/:path/    controllers.FileManager.readPath(path: String)
 POST    /FileManager/path/:path/    controllers.FileManager.addPath(path: String)

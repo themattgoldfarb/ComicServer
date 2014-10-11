@@ -7,12 +7,16 @@ import models.ComicBooks;
 import play.mvc.*;
 import views.html.*;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 
 import models.*;
 import AppCode.*;
 import com.google.gson.Gson;
 import views.html.read;
+
+import javax.imageio.ImageIO;
 
 
 public class Application extends Controller {
@@ -65,13 +69,8 @@ public class Application extends Controller {
         cb.books = ComicBook.find.all();
         return ok(library.render(cb));
     }
-    
-    public static Result page(int comicBookId, int pageId) {
-        ZipFileReader f = new ZipFileReader();
-        ComicBook cb = ComicBook.find.byId(comicBookId);
-        InputStream is = f.GetPage(cb.path, cb.fileName, pageId);
-        return ok(is);
-    }
+
+
 
 
     private static LibraryViewModel getLibraryViewModel(){
