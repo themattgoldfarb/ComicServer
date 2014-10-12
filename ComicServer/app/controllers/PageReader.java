@@ -20,11 +20,19 @@ import java.io.InputStream;
  * Created by matt on 10/3/14.
  */
 public class PageReader extends Controller {
+
+    public static Result page(int comicBookId, int pageId) {
+        ZipFileReader f = new ZipFileReader();
+        ComicBook cb = ComicBook.find.byId(comicBookId);
+        InputStream is = f.GetPage(cb.path, cb.fileName, pageId);
+        return ok(is);
+    }
+
     public static Result thumbnail(int comicBookId, int pageId) {
         ZipFileReader f = new ZipFileReader();
         ComicBook cb = ComicBook.find.byId(comicBookId);
         InputStream is = f.GetPage(cb.path, cb.fileName, pageId);
-        InputStream fis = resize(is, 200, 200);
+        InputStream fis = is;//resize(is, 200, 200);
         return ok(fis);
     }
 
@@ -59,13 +67,5 @@ public class PageReader extends Controller {
 
         return null;
     }
-
-    public static Result page(int comicBookId, int pageId) {
-        ZipFileReader f = new ZipFileReader();
-        ComicBook cb = ComicBook.find.byId(comicBookId);
-        InputStream is = f.GetPage(cb.path, cb.fileName, pageId);
-        return ok(is);
-    }
-
 
 }
