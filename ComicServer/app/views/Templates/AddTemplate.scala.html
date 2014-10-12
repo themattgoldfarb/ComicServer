@@ -1,0 +1,25 @@
+<div class="modal-dialog">
+    <div class = "modal-content">
+        <div class="modal-header">
+            <span><h2><%= directory %></h2></span>
+        </div>
+        <div class="modal-body">
+            <div class = "addFolderContainer">
+                <h3>directories</h3>
+                <ul class = "nav nav-pills nav-stacked ">
+                    <% if(parent){ %>
+                    <li class="addFolderRow" dir="<%=parent%>"><a><i class="glyphicon glyphicon-folder-open"/> .. </a> </li>
+                    <% }%>
+                    <% _.each(directories, function(dir){ %>
+                    <li class="addFolderRow" dir="<%=directory+dir%>"><a><i class="glyphicon glyphicon-folder-open"/> <%=dir%></a> </li>
+                    <% }); %>
+                </ul>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button id="addDirectoryButton" type="button" data-dismiss="modal" class="btn btn-primary" dir="<%=directory%>">Add Directory</button>
+        </div>
+    </div>
+</div>
