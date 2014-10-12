@@ -32,7 +32,7 @@ public class PageReader extends Controller {
         ZipFileReader f = new ZipFileReader();
         ComicBook cb = ComicBook.find.byId(comicBookId);
         InputStream is = f.GetPage(cb.path, cb.fileName, pageId);
-        InputStream fis = is;//resize(is, 200, 200);
+        InputStream fis = resize(is, 200, 200);
         return ok(fis);
     }
 
