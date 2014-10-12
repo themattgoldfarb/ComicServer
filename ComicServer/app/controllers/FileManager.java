@@ -5,9 +5,7 @@ import ViewModels.FilesViewModel;
 import com.google.gson.Gson;
 import models.ComicBook;
 import models.ComicBooks;
-import play.libs.F;
 import play.mvc.Controller;
-import views.html.read;
 import play.mvc.Result;
 
 import java.util.HashSet;
