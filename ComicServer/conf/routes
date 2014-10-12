@@ -5,13 +5,12 @@
 
 
 # Home page
-GET     /                           controllers.Application.index()
-GET     /login                      controllers.Application.login()
-GET		/read						controllers.Application.read()
-GET		/app						controllers.Application.app()
-GET		/libraryOld					controllers.Application.libraryOld()
-GET     /Library                    controllers.Application.Library()
-GET     /Library/$comicBookId<[0-9]+>/  controllers.Application.LibraryBook(comicBookId: java.lang.Integer)
+GET     /                           controllers.Application.app()
+
+
+#LibraryReader
+GET     /Library                        controllers.LibraryManager.Library()
+GET     /Library/$comicBookId<[0-9]+>/  controllers.LibraryManager.LibraryBook(comicBookId: java.lang.Integer)
 
 
 #PageReader
