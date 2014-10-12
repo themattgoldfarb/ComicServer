@@ -169,6 +169,7 @@
 				max-height:200px;
 				margin-left:auto;
 				margin-right:auto;
+				margin-top:10px;
 			}
 			
 			.cover-container.thumbnail{
@@ -182,6 +183,7 @@
 
 			.cover-box{
 			    width:240px;
+			    margin-top:10px;
 			}
 
 
