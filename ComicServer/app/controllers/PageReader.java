@@ -6,7 +6,6 @@ import com.google.gson.Gson;
 import models.ComicBook;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.reader;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -68,15 +67,5 @@ public class PageReader extends Controller {
         return ok(is);
     }
 
-    public static Result reader(int comicBookId ){
-    	ZipFileReader f = new ZipFileReader();
-        ComicBook cb = ComicBook.find.byId(comicBookId);
-        if(cb.numPages == null){
-            cb.numPages = f.NumPages(cb.path, cb.fileName);
-        }
-        ComicBookViewModel cbvm = new ComicBookViewModel(cb);
-    	Gson gson = new Gson();
-    	String json = gson.toJson(cbvm);
-    	return ok(reader.render(json));
-    }
+
 }

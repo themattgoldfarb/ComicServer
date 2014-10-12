@@ -28,69 +28,12 @@ public class Application extends Controller {
 
     public static Result app()
     {
-        LibraryViewModel library = getLibraryViewModel();
+        LibraryReader libraryReader = new LibraryReader();
+        LibraryViewModel library = libraryReader.getLibraryViewModel();
         Gson gson = new Gson();
         String json = gson.toJson(library);
         return ok(app.render(json));
     }
-
-    public static Result read() {
-    	return ok(read.render());
-    }
-
-    public static Result libraryOld(){
-        ComicBooks cb = new ComicBooks();
-        cb.books = ComicBook.find.all();
-        return ok(library.render(cb));
-    }
-
-    public static Result login(){
-        return ok(
-                login.render()
-        );
-
-    }
-    
-
-
-    public static Result Library(){
-        LibraryViewModel library = getLibraryViewModel();
-        Gson gson = new Gson();
-        String json = gson.toJson(library.books);
-        return ok(json);
-    }
-
-    public static Result LibraryBook(int comicBookId){
-        ZipFileReader f = new ZipFileReader();
-        ComicBook cb = ComicBook.find.byId(comicBookId);
-        if(cb.numPages == null){
-            cb.numPages = f.NumPages(cb.path, cb.fileName);
-        }
-        ComicBookViewModel cbvm = new ComicBookViewModel(cb);
-        Gson gson = new Gson();
-        String json = gson.toJson(cbvm);
-        return ok(json);
-    }
-
-
-
-
-
-
-    private static LibraryViewModel getLibraryViewModel(){
-        ZipFileReader f = new ZipFileReader();
-        ComicBooks cb = new ComicBooks();
-        cb.books = ComicBook.find.all();
-        for(ComicBook book: cb.books){
-            if(book.numPages == null){
-                book.numPages = f.NumPages(book.path, book.fileName);
-            }
-        }
-        LibraryViewModel library = new LibraryViewModel(cb);
-        return library;
-    }
-
-
 
 }
 
