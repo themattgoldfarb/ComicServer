@@ -4,8 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
 import org.junit.*;
 
+import play.api.Play;
 import play.mvc.*;
 import play.test.*;
 import play.data.DynamicForm;
@@ -29,8 +32,9 @@ public class ApplicationTest {
 
     @Test
     public void simpleCheck() {
-        int a = 1 + 1;
-        assertThat(a).isEqualTo(2);
+        Config conf = ConfigFactory.load();
+        String thumbnailPath = conf.getString("thumbnail.path");
+        assertThat(thumbnailPath).isEqualToIgnoringCase("asdf");
     }
 
 

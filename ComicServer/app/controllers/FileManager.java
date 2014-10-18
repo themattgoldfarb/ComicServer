@@ -1,5 +1,6 @@
 package controllers;
 
+import AppCode.ThumbnailReader;
 import AppCode.ZipFileReader;
 import ViewModels.FilesViewModel;
 import com.google.gson.Gson;
@@ -44,6 +45,8 @@ public class FileManager extends Controller {
             if(!booksSearch.contains(cb.path+cb.fileName)) {
                 cb.save();
             }
+            ThumbnailReader thumbnailReader = new ThumbnailReader();
+            thumbnailReader.saveThumbnail(cb.id, 1);
         }
 
         return ok("{}");

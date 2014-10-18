@@ -15,7 +15,7 @@ GET     /Library/$comicBookId<[0-9]+>/  controllers.LibraryManager.LibraryBook(c
 
 #PageReader
 GET		/page/$comicBookId<[0-9]+>/$pageId<[0-9]+>/	controllers.PageReader.page(comicBookId: java.lang.Integer, pageId: java.lang.Integer)
-GET		/thumbnail/$comicBookId<[0-9]+>/$pageId<[0-9]+>/	controllers.PageReader.thumbnail(comicBookId: java.lang.Integer, pageId: java.lang.Integer)
+GET		/thumbnail/$comicBookId<[0-9]+>/	controllers.PageReader.thumbnail(comicBookId: java.lang.Integer)
 
 
 #FileManager
