@@ -26,7 +26,7 @@ public class PageReader extends Controller {
         ZipFileReader f = new ZipFileReader();
         ComicBook cb = ComicBook.find.byId(comicBookId);
         InputStream is = f.GetPage(cb.path, cb.fileName, pageId);
-        return ok(is);
+        return ok(is).as("image/jpeg");
     }
 
     public static Result thumbnail(int comicBookId) {
@@ -37,7 +37,7 @@ public class PageReader extends Controller {
             ComicBook cb = ComicBook.find.byId(comicBookId);
             is = f.GetPage(cb.path, cb.fileName, cb.coverIndex);
         }
-        return ok(is);
+        return ok(is).as("image/jpeg");
     }
 
 
