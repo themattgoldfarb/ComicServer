@@ -25,21 +25,15 @@
         <style>
 
     	</style>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
 	<body onload="initMain()">
 		
 		<div id="main" class="show-action-bar show-top-bar">
 	
-			<div class="top-bar navbar navbar-inverse navbar-static-top">
+			<div class="top-bar navbar navbar-inverse navbar-static-top hidden-xs">
 				<div class="navbar-inner">
 					<div class="">
-						<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-						  <span class="icon-bar"></span>
-						  <span class="icon-bar"></span>
-						  <span class="icon-bar"></span>
-						</a>
-					    
-					    
 					    <ul class = "nav navbar-nav">
 							<li><a class="navbar-brand" href="/">Web Slinger Comic Reader</a></li>
 							<li><a class="navbar-brand" href="#library">Library</a></li>
@@ -59,18 +53,38 @@
 					</div>
 				</div>
 			</div>
-			
-	
-			<div id="side-bar-container"></div>
 
-			<div class="action-bar" >
+			<div class="top-bar navbar navbar-inverse navbar-static-top visible-xs-block">
+				<div class="navbar-inner">
+					<div class="">
+					    <ul class = "nav navbar-nav">
+							<li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                            aria-expanded="fales" href="#">
+                                    Web Slinger Comic Reader <span class=""caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a class="navbar-brand" href="/">home</a></li>
+                                    <li><a class="navbar-brand" href="#library">Library</a></li>
+                                    <li><a class="navbar-brand" href="#addModal" data-toggle="modal">Add</a></li>
+                                    <li><a class="navbar-brand" href="/logout">Logout</a></li>
+                                </ul>
+                            </li>
+						</ul>
+					</div>
+				</div>
+			</div>
+	
+			<div id="side-bar-container hidden-xs"></div>
+
+			<div class="action-bar hidden-xs" >
 				<div class="action-bar-nav">
 					<ul class = "nav action-bar-nav">
 						<li><a class="navbar-link" id="expand-side-bar">
 							<span class="expand-side-bar glyphicon glyphicon-circle-arrow-right"></span>
 							<span class="shrink-side-bar glyphicon glyphicon-circle-arrow-left"></span>
 						</a></li>
-						
+
 					</ul>
 				</div>
 			</div>
