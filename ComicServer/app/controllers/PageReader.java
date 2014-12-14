@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import models.ComicBook;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -22,6 +23,7 @@ import java.io.InputStream;
  */
 public class PageReader extends Controller {
 
+    @Security.Authenticated(Secured.class)
     public static Result page(int comicBookId, int pageId) {
         ZipFileReader f = new ZipFileReader();
         ComicBook cb = ComicBook.find.byId(comicBookId);
@@ -29,6 +31,7 @@ public class PageReader extends Controller {
         return ok(is).as("image/jpeg");
     }
 
+    @Security.Authenticated(Secured.class)
     public static Result thumbnail(int comicBookId) {
         ZipFileReader f = new ZipFileReader();
         ThumbnailReader thumbnailReader = new ThumbnailReader();

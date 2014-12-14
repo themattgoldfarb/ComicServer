@@ -21,7 +21,7 @@ app.addInitializer(function(options) {
         app.addView = new AddView({
     //        collection: app.library
         });
-        app.mainRegion.show(app.addView);
+        //app.mainRegion.show(app.addView);
 })
 
 app.showLibrary = function(options){

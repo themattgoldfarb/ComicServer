@@ -13,6 +13,7 @@ import play.mvc.*;
  */
 public class LibraryManager extends Controller{
 
+    @Security.Authenticated(Secured.class)
     public static Result Library(){
         LibraryReader libraryReader = new LibraryReader();
         LibraryViewModel library = libraryReader.getLibraryViewModel();
@@ -21,6 +22,7 @@ public class LibraryManager extends Controller{
         return ok(json);
     }
 
+    @Security.Authenticated(Secured.class)
     public static Result LibraryBook(int comicBookId){
         ZipFileReader f = new ZipFileReader();
         ComicBook cb = ComicBook.find.byId(comicBookId);

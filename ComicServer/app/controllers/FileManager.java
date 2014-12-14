@@ -8,6 +8,7 @@ import models.ComicBook;
 import models.ComicBooks;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 
 import java.util.HashSet;
 
@@ -16,6 +17,8 @@ import java.util.HashSet;
  * Created by matt on 10/3/14.
  */
 public class FileManager extends Controller {
+
+    @Security.Authenticated(Secured.class)
     public static Result readPath(String path){
         ZipFileReader f = new ZipFileReader();
         FilesViewModel vm = f.readDirectory(path);
@@ -24,6 +27,7 @@ public class FileManager extends Controller {
         return ok(json);
     }
 
+    @Security.Authenticated(Secured.class)
     public static Result addPath(String path){
         ZipFileReader f = new ZipFileReader();
         FilesViewModel vm = f.readDirectory(path);
