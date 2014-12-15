@@ -4,6 +4,7 @@ PageView = Backbone.Marionette.ItemView.extend({
     initialize : function(){
         this.attributes.id= 'PageView-'+this.model.attributes.id;
         this.tabName = 'div';
+
         this.template= '#PageTemplate';
     },
 

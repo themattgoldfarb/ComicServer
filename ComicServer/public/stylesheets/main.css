@@ -1,5 +1,4 @@
 			html, body {
-			  height: 100%;
 			  font-family: "Open Sans", Helvetica, Arial, Sans-serif;
 			}
 			body {
@@ -12,14 +11,18 @@
 			}
 
 			#comicImages {
-			  text-align: center;
+			  text-align: left;
 			}
 			#introText {
 			  margin-top: 100px;
 			}
 			.fitVertical {
-			  max-height: 100%;		  
+              position:absolute;
+			  height: 100%;
 			  width: auto;
+              max-height: 100%;
+			  max-height: -moz-calc(100% - 41px);
+			  max-height: -webkit-calc(100% - 41px);
 			}
 			.spread2 .fitHorizontal {
 			  height: auto;
@@ -31,11 +34,12 @@
 			}
 			
 			.fitBoth {
+              position:absolute;
 			  width: auto;
 			  height: auto;
 			  max-height: 100%;
-			  max-height: -moz-calc(100% - 41px);
-			  max-height: -webkit-calc(100% - 41px);
+			  max-height: -moz-calc(100% - 50px);
+			  max-height: -webkit-calc(100% - 50px);
 			  max-height: 100%
 			  }
 			  .spread1 .fitBoth {
