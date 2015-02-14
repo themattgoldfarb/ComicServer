@@ -26,6 +26,8 @@ GET         /thumbnail/$comicBookId<[0-9]+>/                   controllers.PageR
 GET         /FileManager/path/:path/                           controllers.FileManager.readPath(path: String)
 POST        /FileManager/path/:path/                           controllers.FileManager.addPath(path: String)
 
+#Users
+GET         /users                                              controllers.UserManager.users()
 
 
 

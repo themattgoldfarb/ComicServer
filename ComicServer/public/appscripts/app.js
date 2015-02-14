@@ -10,18 +10,13 @@ app.on('initialize:after', function(){
 
 })
 
-
-
 app.addInitializer(function(options) {
     app.library = options.library;
 
-   // app.showLibrary(options);
     app.showSideBar(options);
 
         app.addView = new AddView({
-    //        collection: app.library
         });
-        //app.mainRegion.show(app.addView);
 })
 
 app.showLibrary = function(options){
@@ -46,12 +41,14 @@ app.showReader = function(id){
 }
 
 app.showAdd = function(){
-    var self = this;
-    app.addView = new AddView({
-//        collection: app.library
-    });
+    app.addView = new AddView();
     app.addView.refreshLibrary = function(){ app.showLibrary(); };
     app.mainRegion.show(app.addView);
+}
+
+app.showUsers = function(){
+    app.usersView = new UsersView()
+    app.mainRegion.show(app.usersView);
 }
 
 router = new Backbone.Marionette.AppRouter({
@@ -59,6 +56,7 @@ router = new Backbone.Marionette.AppRouter({
     appRoutes: {
         "reader/:id/" : "showReader",
         "library" : "showLibrary",
-        "add" : "showAdd"
+        "add" : "showAdd",
+        "users" : "showUsers"
     }
 });

@@ -2,8 +2,9 @@ package models;
 
 import play.db.ebean.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by matt on 12/14/14.
@@ -14,6 +15,9 @@ public class User extends Model {
     public String email;
     public String name;
     public String password;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    public List<UserInRole> userInRoles = new ArrayList<UserInRole>();
 
     public User(String email, String name, String password){
         this.email = email;

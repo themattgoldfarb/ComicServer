@@ -1,8 +1,8 @@
 # --- !Ups
 
 create table role (
-  roleName VARCHAR(255) not null,
-  CONSTRAINT pk_roleName PRIMARY KEY (roleName)
+  role_name VARCHAR(255) not null,
+  CONSTRAINT pk_roleName PRIMARY KEY (role_name)
 );
 
 # --- !Downs

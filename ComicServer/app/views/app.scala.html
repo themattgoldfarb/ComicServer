@@ -10,15 +10,17 @@
     <script src="@routes.Assets.at("appscripts/app.js")"></script>
     <script src="@routes.Assets.at("appscripts/Models/ComicModel.js")"></script>
     <script src="@routes.Assets.at("appscripts/Models/LibraryModel.js")"></script>
+    <script src="@routes.Assets.at("appscripts/Models/FileModel.js")"></script>
+    <script src="@routes.Assets.at("appscripts/Models/PageModel.js")"></script>
+    <script src="@routes.Assets.at("appscripts/Models/PageCollection.js")"></script>
     <script src="@routes.Assets.at("appscripts/Views/ComicView.js")"></script>
     <script src="@routes.Assets.at("appscripts/Views/LibraryView.js")"></script>
-    <script src="@routes.Assets.at("appscripts/Models/FileModel.js")"></script>
     <script src="@routes.Assets.at("appscripts/Views/AddView.js")"></script>
     <script src="@routes.Assets.at("appscripts/Views/SideBarView.js")"></script>
     <script src="@routes.Assets.at("appscripts/Views/PageView.js")"></script>
     <script src="@routes.Assets.at("appscripts/Views/ReaderView.js")"></script>
-    <script src="@routes.Assets.at("appscripts/Models/PageModel.js")"></script>
-    <script src="@routes.Assets.at("appscripts/Models/PageCollection.js")"></script>
+    <script src="@routes.Assets.at("appscripts/Views/UserView.js")"></script>
+    <script src="@routes.Assets.at("appscripts/Views/UsersView.js")"></script>
 
     <script type="text/template" id="ComicTemplate">@Templates.ComicBookTemplate()</script>
     <script type="text/template" id="LibraryTemplate">@Templates.LibraryTemplate()</script>
@@ -26,6 +28,8 @@
     <script type="text/template" id="AddTemplate">@Templates.AddTemplate()</script>
     <script type="text/template" id="ReaderTemplate">@Templates.ReaderTemplate()</script>
     <script type="text/template" id="PageTemplate">@Templates.PageTemplate()</script>
+    <script type="text/template" id="UsersTemplate">@Templates.UsersTemplate()</script>
+    <script type="text/template" id="UserTemplate">@Templates.UserTemplate()</script>
 
     <script type="text/javascript">
 		var libraryJson = @Html(json);

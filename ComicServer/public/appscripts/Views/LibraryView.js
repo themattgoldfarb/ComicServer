@@ -13,7 +13,7 @@ LibraryView = Backbone.Marionette.CompositeView.extend({
 
     refreshLibrary : function(self){
         self.collection.fetch({
-            success:function(){self.render()},
+            success:function(){self.render();}
         });
     },
 

@@ -1,6 +1,6 @@
 # --- !Ups
 
-insert into role(roleName) values
+insert into role(role_name) values
   ('userAdministrator'),
   ('fileAdministrator'),
   ('reader')
@@ -8,5 +8,5 @@ insert into role(roleName) values
 
 # --- !Downs
 
-delete from role where roleName in ('userAdministrator', 'fileAdministrator', 'reader');
+delete from role where role_name in ('userAdministrator', 'fileAdministrator', 'reader');
 
