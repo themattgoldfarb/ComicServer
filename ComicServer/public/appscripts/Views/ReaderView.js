@@ -26,9 +26,8 @@ ReaderView = Backbone.Marionette.CompositeView.extend({
         $(document).bind('keydown', 'v', function(){self.fitVertical();});
         $(document).bind('keydown', 'h', function(){self.fitHorizontal();});
         $(document).bind('keydown', 'b', function(){self.fitBoth();});
-        $(document).bind()
-        $("#comicImages img").bind('swipeleft', function(){self.prevPanel(self);});
-        $("#comicImages img").bind('swiperight', function(){self.nextPanel(self);});
+        $(document).bind('keydown', '')
+
     },
 
     setupNavButtons: function(){
@@ -62,8 +61,8 @@ ReaderView = Backbone.Marionette.CompositeView.extend({
         var self = this;
         //$(item).bind('tap', function(){self.nextPanel(self);});
         $(item).bind('click', function(){self.nextPanel(self);});
-        $(item).bind('swiperight', function(){self.nextPanel(self);});
-        $(item).bind('swipeleft', function(){self.prevPanel(self);});
+        $(item).bind('swipeleft', function(){self.nextPanel(self);});
+        $(item).bind('swiperight', function(){self.prevPanel(self);});
     },
 
     nextPanel: function(self){
