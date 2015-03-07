@@ -144,10 +144,10 @@
 				left:300px;
 			}
 
-			.top-bar{
+			.top-bar-container{
 			    display:none;
 			}
-			.show-top-bar .top-bar{
+			.show-top-bar .top-bar-container{
 			    display:block;
 			}
 			

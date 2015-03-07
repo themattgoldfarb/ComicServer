@@ -26,6 +26,7 @@ ReaderView = Backbone.Marionette.CompositeView.extend({
         $(document).bind('keydown', 'v', function(){self.fitVertical();});
         $(document).bind('keydown', 'h', function(){self.fitHorizontal();});
         $(document).bind('keydown', 'b', function(){self.fitBoth();});
+        $(document).bind()
         $("#comicImages img").bind('swipeleft', function(){self.prevPanel(self);});
         $("#comicImages img").bind('swiperight', function(){self.nextPanel(self);});
     },
@@ -39,12 +40,16 @@ ReaderView = Backbone.Marionette.CompositeView.extend({
         $("#fitHorizontal").click(self.fitHorizontal);
         $("#fitBoth").parent().show();
         $("#fitBoth").click(self.fitBoth);
+        $("#hideTop").parent().show();
+        $("#hideTop").click(self.hideTop);
         $("#fitVerticalxs").parent().show();
         $("#fitVerticalxs").click(self.fitVertical);
         $("#fitHorizontalxs").parent().show();
         $("#fitHorizontalxs").click(self.fitHorizontal);
         $("#fitBothxs").parent().show();
         $("#fitBothxs").click(self.fitBoth);
+        $("#hideTopxs").parent().show();
+        $("#hideTopxs").click(self.hideTop);
     },
 
     appendHtml: function(collectionView, itemView){
@@ -96,7 +101,9 @@ ReaderView = Backbone.Marionette.CompositeView.extend({
       $("#comicImages img").addClass('fitBoth');
     },
 
-
+    hideTop: function() {
+        $("#main").removeClass('show-top-bar');
+    },
 
 
     loadPages : function(){
