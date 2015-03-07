@@ -26,7 +26,8 @@ ReaderView = Backbone.Marionette.CompositeView.extend({
         $(document).bind('keydown', 'v', function(){self.fitVertical();});
         $(document).bind('keydown', 'h', function(){self.fitHorizontal();});
         $(document).bind('keydown', 'b', function(){self.fitBoth();});
-        $(document).bind('keydown', '')
+        $(document).bind('keydown', 'f', function(){self.hideTop();});
+        $(document).bind('keydown', 'esc', function(){self.showTop();});
 
     },
 
@@ -41,6 +42,8 @@ ReaderView = Backbone.Marionette.CompositeView.extend({
         $("#fitBoth").click(self.fitBoth);
         $("#hideTop").parent().show();
         $("#hideTop").click(self.hideTop);
+        $("#toggleTapTarget").parent().show();
+        $("#toggleTapTarget").click(self.toggleTapTarget);
         $("#fitVerticalxs").parent().show();
         $("#fitVerticalxs").click(self.fitVertical);
         $("#fitHorizontalxs").parent().show();
@@ -49,6 +52,9 @@ ReaderView = Backbone.Marionette.CompositeView.extend({
         $("#fitBothxs").click(self.fitBoth);
         $("#hideTopxs").parent().show();
         $("#hideTopxs").click(self.hideTop);
+        $("#hideTopxs").click(self.hideTop);
+        $("#toggleTapTargetxs").parent().show();
+        $("#toggleTapTargetxs").click(self.toggleTapTarget);
     },
 
     appendHtml: function(collectionView, itemView){
@@ -57,12 +63,19 @@ ReaderView = Backbone.Marionette.CompositeView.extend({
         self.setupTouchControls(itemView.el);
     },
 
+    onRender: function(collectionView){
+        var self = this;
+        collectionView.$('#topButton').bind('tap', function(){self.toggleTop();});
+    },
+
     setupTouchControls: function(item){
         var self = this;
         //$(item).bind('tap', function(){self.nextPanel(self);});
-        $(item).bind('click', function(){self.nextPanel(self);});
+       // $(item).bind('click', function(){self.nextPanel(self);});
         $(item).bind('swipeleft', function(){self.nextPanel(self);});
         $(item).bind('swiperight', function(){self.prevPanel(self);});
+        $(item).bind('swipeup', function(){self.hideTop();});
+        $(item).bind('swipedown', function(){self.showTop();});
     },
 
     nextPanel: function(self){
@@ -104,6 +117,17 @@ ReaderView = Backbone.Marionette.CompositeView.extend({
         $("#main").removeClass('show-top-bar');
     },
 
+    showTop: function() {
+        $("#main").addClass('show-top-bar');
+    },
+
+    toggleTop: function() {
+        $("#main").toggleClass('show-top-bar');
+    },
+
+    toggleTapTarget: function() {
+        $("#main").toggleClass('show-tap-target');
+    },
 
     loadPages : function(){
     	if(model.numPages>0){
