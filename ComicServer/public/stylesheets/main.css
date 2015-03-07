@@ -21,9 +21,8 @@
 			  height: 100%;
 			  width: auto;
               max-height: 100%;
-			  max-height: -moz-calc(100% - 41px);
-			  max-height: -webkit-calc(100% - 41px);
 			}
+
 			.spread2 .fitHorizontal {
 			  height: auto;
 			  width: 50%;        
