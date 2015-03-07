@@ -34,7 +34,7 @@ public class ApplicationTest {
     public void simpleCheck() {
         Config conf = ConfigFactory.load();
         String thumbnailPath = conf.getString("thumbnail.path");
-        assertThat(thumbnailPath).isEqualToIgnoringCase("asdf");
+        assertThat(thumbnailPath).isEqualToIgnoringCase("/home/matt/ComicServerThumbnails");
     }
 
 
