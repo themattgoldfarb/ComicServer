@@ -225,6 +225,9 @@
                 text-align: center;
                 color: #FFFFFF;
             }
+            .tap-target-blue{
+                background-color: blue;
+            }
 
             .tap-target-vertical{
                 width:80px;
@@ -232,21 +235,20 @@
                 background-color: green;
             }
 
-            .vertical-button-container{
+            .horizontal-button-container{
                 position: fixed;
                 right:0px;
                 width: 100%;
-                height: 80px;
             }
 
-            .show-top-bar .vertical-button-container-top{
+            .show-top-bar .horizontal-button-container-top{
                 top:50px;
             }
-            .vertical-button-container-top{
+            .horizontal-button-container-top{
                 top:0px;
             }
 
-            .vertical-button-container-bottom{
+            .horizontal-button-container-bottom{
                 bottom:0px;
             }
 
@@ -255,7 +257,6 @@
             }
 
             #bottomButton {
-                bottom:0px;
             }
 
             #rightButton{

@@ -66,6 +66,12 @@ ReaderView = Backbone.Marionette.CompositeView.extend({
     onRender: function(collectionView){
         var self = this;
         collectionView.$('#topButton').bind('tap', function(){self.toggleTop();});
+        collectionView.$('#leftButton').bind('tap', function(){self.prevPanel(self);});
+        collectionView.$('#rightButton').bind('tap', function(){self.nextPanel(self);});
+        collectionView.$('#toggleControlsButton').bind('tap', function(){self.toggleTapTarget();});
+        collectionView.$('#fitBothButton').bind('tap', function(){self.fitBoth();});
+        collectionView.$('#fitVerticalButton').bind('tap', function(){self.fitVertical();});
+        collectionView.$('#fitHorizontalButton').bind('tap', function(){self.fitHorizontal();});
     },
 
     setupTouchControls: function(item){
@@ -74,8 +80,6 @@ ReaderView = Backbone.Marionette.CompositeView.extend({
        // $(item).bind('click', function(){self.nextPanel(self);});
         $(item).bind('swipeleft', function(){self.nextPanel(self);});
         $(item).bind('swiperight', function(){self.prevPanel(self);});
-        $(item).bind('swipeup', function(){self.hideTop();});
-        $(item).bind('swipedown', function(){self.showTop();});
     },
 
     nextPanel: function(self){
