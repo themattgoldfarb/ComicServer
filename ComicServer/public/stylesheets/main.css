@@ -104,11 +104,6 @@
 			    -webkit-overflow-scrolling: touch;
 			}
 
-            @media (min-width: 767px) {
-                .show-action-bar .scroll-container, .show-action-bar .side-bar {
-                    left: 60px;
-                }
-            }
 			.show-top-bar .scroll-container, .show-top-bar .side-bar {
 				top:50px;
 			}
