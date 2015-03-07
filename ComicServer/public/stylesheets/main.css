@@ -213,6 +213,10 @@
             .tap-target {
                 position:fixed;
                 opacity: 0;
+                z-index:5;
+                color: #FFFFFF;
+                font-size:2em;
+                text-align: center;
             }
 
             .tap-target-horizontal{
@@ -221,12 +225,20 @@
                 background-color: red;
                 margin-left:80px;
                 margin-right:80px;
-                font-size:2em;
-                text-align: center;
-                color: #FFFFFF;
+            }
+            .tap-target-horizontal-third{
+                height:80px;
+                width:33.33%;
+                background-color: green;
+                float:left;
+                position:relative;
             }
             .tap-target-blue{
                 background-color: blue;
+            }
+
+            .no-pointer{
+                pointer-events: none;
             }
 
             .tap-target-vertical{
@@ -234,11 +246,24 @@
                 height:100%;
                 background-color: green;
             }
+            .tap-target-vertical .vertical-center{
+                position:relative;
+                margin-top:auto;
+                margin-bottom: auto;
+            }
 
             .horizontal-button-container{
                 position: fixed;
                 right:0px;
                 width: 100%;
+                z-index: 10;
+            }
+
+            .horizontal-button-container-sub{
+                height:80px;
+                position: relative;
+                margin-left:80px;
+                margin-right:80px;
             }
 
             .show-top-bar .horizontal-button-container-top{

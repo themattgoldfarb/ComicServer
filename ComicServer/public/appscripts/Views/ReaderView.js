@@ -29,6 +29,7 @@ ReaderView = Backbone.Marionette.CompositeView.extend({
         $(document).bind('keydown', 'f', function(){self.hideTop();});
         $(document).bind('keydown', 'esc', function(){self.showTop();});
 
+
     },
 
     setupNavButtons: function(){
@@ -65,19 +66,20 @@ ReaderView = Backbone.Marionette.CompositeView.extend({
 
     onRender: function(collectionView){
         var self = this;
-        collectionView.$('#topButton').bind('tap', function(){self.toggleTop();});
-        collectionView.$('#leftButton').bind('tap', function(){self.prevPanel(self);});
-        collectionView.$('#rightButton').bind('tap', function(){self.nextPanel(self);});
-        collectionView.$('#toggleControlsButton').bind('tap', function(){self.toggleTapTarget();});
-        collectionView.$('#fitBothButton').bind('tap', function(){self.fitBoth();});
-        collectionView.$('#fitVerticalButton').bind('tap', function(){self.fitVertical();});
-        collectionView.$('#fitHorizontalButton').bind('tap', function(){self.fitHorizontal();});
+        var touchControlsView = self.options.touchControls;
+        touchControlsView.$('#topButton').bind('toggle', function(){self.toggleTop();});
+        touchControlsView.$('#leftButton').bind('toggle', function(){self.prevPanel(self);});
+        touchControlsView.$('#rightButton').bind('toggle', function(){self.nextPanel(self);});
+        touchControlsView.$('#toggleControlsButton').bind('toggle', function(){self.toggleTapTarget();});
+        touchControlsView.$('#fitBothButton').bind('toggle', function(){self.fitBoth();});
+        touchControlsView.$('#fitVerticalButton').bind('toggle', function(){self.fitVertical();});
+        touchControlsView.$('#fitHorizontalButton').bind('toggle', function(){self.fitHorizontal();});
+        $('.scroll-container').bind('click', function(event){self.handleClick(event);});
     },
 
     setupTouchControls: function(item){
         var self = this;
         //$(item).bind('tap', function(){self.nextPanel(self);});
-       // $(item).bind('click', function(){self.nextPanel(self);});
         $(item).bind('swipeleft', function(){self.nextPanel(self);});
         $(item).bind('swiperight', function(){self.prevPanel(self);});
     },
@@ -133,6 +135,22 @@ ReaderView = Backbone.Marionette.CompositeView.extend({
         $("#main").toggleClass('show-tap-target');
     },
 
+    handleClick: function(event){
+        $('.tap-target').each(function(index){
+            var top = $(this).offset().top - $(document).scrollTop();
+            var left = $(this).offset().left;
+            var height = $(this).height();
+            var width = $(this).width();
+            if(event.pageY >= top
+                && event.pageY <= top+height
+                && event.pageX >= left
+                && event.pageX <= left+width
+            ){
+                $(this).trigger("toggle");
+            }
+        });
+    },
+
     loadPages : function(){
     	if(model.numPages>0){
     		for(var i = 1; i<= comicJson.numPages; i++){
@@ -140,4 +158,5 @@ ReaderView = Backbone.Marionette.CompositeView.extend({
     		}
     	}
     }
+
 });
