@@ -26,18 +26,9 @@ public class Secured extends Security.Authenticator {
 
     public static List<String> getRoles(){
         String username = Http.Context.current().request().username();
-        List<UserInRole> userInRoles = User.find.fetch("userInRoles")
-                .where()
-                .ilike("email", username)
-                .findList()
-                .get(0)
-                .userInRoles;
-        List<String> roles = new ArrayList<>();
-        for(UserInRole uir : userInRoles){
-            roles.add(uir.roleName);
-        }
-        return roles;
+        return User.find.byId(username).getRoles();
     }
+
 
     public static boolean hasRole(String roleName){
         List<String> roles = getRoles();
