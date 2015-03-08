@@ -20,12 +20,13 @@ GET         /Library/$comicBookId<[0-9]+>/                     controllers.Libra
 #PageReader
 GET         /page/$comicBookId<[0-9]+>/$pageId<[0-9]+>/        controllers.PageReader.page(comicBookId: java.lang.Integer, pageId: java.lang.Integer)
 GET         /thumbnail/$comicBookId<[0-9]+>/                   controllers.PageReader.thumbnail(comicBookId: java.lang.Integer)
+GET         /book/$comicBookId<[0-9]+>/                          controllers.PageReader.book(comicBookId: java.lang.Integer)
 
 
 #FileManager
 GET         /FileManager/path/:path/                           controllers.FileManager.readPath(path: String)
 POST        /FileManager/path/:path/                           controllers.FileManager.addPath(path: String)
-GET         /refreshLibrary                                     controllers.FileManager.rescan()
+GET         /refreshLibrary                                    controllers.FileManager.rescan()
 
 #Users
 GET         /users                                             controllers.UserManager.users()

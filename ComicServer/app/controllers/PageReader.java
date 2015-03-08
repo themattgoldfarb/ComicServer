@@ -15,6 +15,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.InputStream;
 
 
@@ -29,6 +30,13 @@ public class PageReader extends Controller {
         ComicBook cb = ComicBook.find.byId(comicBookId);
         InputStream is = f.GetPage(cb.path, cb.fileName, pageId);
         return ok(is).as("image/jpeg");
+    }
+
+    public static Result book(int comicBookId){
+        ZipFileReader reader = new ZipFileReader();
+        ComicBook cb = ComicBook.find.byId(comicBookId);
+        File f = reader.getBook(cb.path, cb.fileName);
+        return ok(f).as("application/x-cbz");
     }
 
     @Security.Authenticated(Secured.class)
