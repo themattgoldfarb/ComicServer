@@ -2,14 +2,14 @@ package controllers;
 
 import ViewModels.LibraryViewModel;
 import models.User;
-import play.api.Configuration;
-import play.api.Play;
 import play.data.Form;
 import play.mvc.*;
 import views.html.*;
 
 import AppCode.*;
 import com.google.gson.Gson;
+
+import java.util.List;
 
 import static play.data.Form.form;
 
@@ -64,7 +64,8 @@ public class Application extends Controller {
         LibraryViewModel library = libraryReader.getLibraryViewModel();
         Gson gson = new Gson();
         String json = gson.toJson(library);
-        return ok(app.render(json, user.name));
+        List<String> roles = Secured.getRoles();
+        return ok(app.render(json, user.name, roles));
     }
 
 }
