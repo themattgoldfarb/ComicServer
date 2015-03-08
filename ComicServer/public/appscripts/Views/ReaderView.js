@@ -26,8 +26,10 @@ ReaderView = Backbone.Marionette.CompositeView.extend({
         $(document).bind('keydown', 'v', function(){self.fitVertical();});
         $(document).bind('keydown', 'h', function(){self.fitHorizontal();});
         $(document).bind('keydown', 'b', function(){self.fitBoth();});
-        $("#comicImages img").bind('swipeleft', function(){self.prevPanel(self);});
-        $("#comicImages img").bind('swiperight', function(){self.nextPanel(self);});
+        $(document).bind('keydown', 'f', function(){self.hideTop();});
+        $(document).bind('keydown', 'esc', function(){self.showTop();});
+
+
     },
 
     setupNavButtons: function(){
@@ -39,12 +41,21 @@ ReaderView = Backbone.Marionette.CompositeView.extend({
         $("#fitHorizontal").click(self.fitHorizontal);
         $("#fitBoth").parent().show();
         $("#fitBoth").click(self.fitBoth);
+        $("#hideTop").parent().show();
+        $("#hideTop").click(self.hideTop);
+        $("#toggleTapTarget").parent().show();
+        $("#toggleTapTarget").click(self.toggleTapTarget);
         $("#fitVerticalxs").parent().show();
         $("#fitVerticalxs").click(self.fitVertical);
         $("#fitHorizontalxs").parent().show();
         $("#fitHorizontalxs").click(self.fitHorizontal);
         $("#fitBothxs").parent().show();
         $("#fitBothxs").click(self.fitBoth);
+        $("#hideTopxs").parent().show();
+        $("#hideTopxs").click(self.hideTop);
+        $("#hideTopxs").click(self.hideTop);
+        $("#toggleTapTargetxs").parent().show();
+        $("#toggleTapTargetxs").click(self.toggleTapTarget);
     },
 
     appendHtml: function(collectionView, itemView){
@@ -53,23 +64,45 @@ ReaderView = Backbone.Marionette.CompositeView.extend({
         self.setupTouchControls(itemView.el);
     },
 
+    onRender: function(collectionView){
+        var self = this;
+        var touchControlsView = self.options.touchControls;
+        touchControlsView.$('#topButton').bind('toggle', function(){self.toggleTop();});
+        touchControlsView.$('#leftButton').bind('toggle', function(){self.prevPanel(self);});
+        touchControlsView.$('#rightButton').bind('toggle', function(){self.nextPanel(self);});
+        touchControlsView.$('#toggleControlsButton').bind('toggle', function(){self.toggleTapTarget();});
+        touchControlsView.$('#fitBothButton').bind('toggle', function(){self.fitBoth();});
+        touchControlsView.$('#fitVerticalButton').bind('toggle', function(){self.fitVertical();});
+        touchControlsView.$('#fitHorizontalButton').bind('toggle', function(){self.fitHorizontal();});
+        $('.scroll-container').bind('click', function(event){self.handleClick(event);});
+    },
+
     setupTouchControls: function(item){
         var self = this;
         //$(item).bind('tap', function(){self.nextPanel(self);});
-        $(item).bind('click', function(){self.nextPanel(self);});
-        $(item).bind('swiperight', function(){self.nextPanel(self);});
-        $(item).bind('swipeleft', function(){self.prevPanel(self);});
+        $(item).bind('swipeleft', function(){self.nextPanel(self);});
+        $(item).bind('swiperight', function(){self.prevPanel(self);});
+    },
+
+    scrollBottom: function(){
+        $('.scroll-container').scrollTop($('#main-container').height() - $('.scroll-container').height());
+    },
+
+    scrollTop: function(){
+        $('.scroll-container').scrollTop(0);
     },
 
     nextPanel: function(self){
         if(self.currentPage<self.model.attributes.numPages){
             self.drawPanel(++self.currentPage);
+            self.scrollTop();
         }
     },
 
     prevPanel: function(self){
         if(self.currentPage>1){
             self.drawPanel(--self.currentPage);
+            self.scrollBottom();
         }
     },
 
@@ -96,8 +129,37 @@ ReaderView = Backbone.Marionette.CompositeView.extend({
       $("#comicImages img").addClass('fitBoth');
     },
 
+    hideTop: function() {
+        $("#main").removeClass('show-top-bar');
+    },
 
+    showTop: function() {
+        $("#main").addClass('show-top-bar');
+    },
 
+    toggleTop: function() {
+        $("#main").toggleClass('show-top-bar');
+    },
+
+    toggleTapTarget: function() {
+        $("#main").toggleClass('show-tap-target');
+    },
+
+    handleClick: function(event){
+        $('.tap-target').each(function(index){
+            var top = $(this).offset().top - $(document).scrollTop();
+            var left = $(this).offset().left;
+            var height = $(this).height();
+            var width = $(this).width();
+            if(event.pageY >= top
+                && event.pageY <= top+height
+                && event.pageX >= left
+                && event.pageX <= left+width
+            ){
+                $(this).trigger("toggle");
+            }
+        });
+    },
 
     loadPages : function(){
     	if(model.numPages>0){
@@ -106,4 +168,5 @@ ReaderView = Backbone.Marionette.CompositeView.extend({
     		}
     	}
     }
+
 });

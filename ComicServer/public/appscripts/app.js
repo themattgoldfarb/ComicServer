@@ -2,7 +2,8 @@ window.app = new Backbone.Marionette.Application();
 
 app.addRegions({
     mainRegion: "#main-container",
-    sideBarRegion: "#side-bar-container"
+    sideBarRegion: "#side-bar-container",
+    touchControlsRegion: "#touch-controls-container"
 })
 
 app.on('initialize:after', function(){
@@ -32,9 +33,13 @@ app.showSideBar = function(options){
 }
 
 app.showReader = function(id){
+    var touchControlsView = new TouchControlsView({});
+    app.touchControls = touchControlsView;
+    app.touchControlsRegion.show(touchControlsView);
 
     var readerView = new ReaderView({
-        model: app.library.get(id)
+        model: app.library.get(id),
+        touchControls: touchControlsView
     });
     app.reader=readerView;
     app.mainRegion.show(readerView);

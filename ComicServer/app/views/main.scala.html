@@ -9,6 +9,7 @@
         
         <script src="@routes.Assets.at("javascripts/jquery-1.9.1.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.at("javascripts/jquery.mobile.custom.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/jquerymobile-swipeupdown.js")" type="text/javascript"></script>
 
 	    <link href="@routes.Assets.at("bootstrap/css/bootstrap.css")" rel="stylesheet">
 	    <link href="@routes.Assets.at("stylesheets/main.css")" rel="stylesheet">
@@ -31,70 +32,67 @@
 	<body onload="initMain()">
 		
 		<div id="main" class="show-action-bar show-top-bar">
-	
-			<div class="top-bar navbar navbar-inverse navbar-static-top hidden-xs">
-				<div class="navbar-inner">
-					<div class="">
-					    <ul class = "nav navbar-nav">
-							<li><a class="navbar-brand" href="/">Web Slinger Comic Reader</a></li>
-							<li><a class="navbar-brand" href="#library">Library</a></li>
-							<li><a class="navbar-brand" href="#addModal" data-toggle="modal">Add</a></li>
-                            <li><a class="navbar-brand" href="#users">Users</a></li>
-							<li style="display: none;"><a href="javascript:none;" title="Left arrow or k" id="prevPanel"><span class="glyphicon glyphicon-chevron-right"></span> Previous</a></li>
-							<li style="display: none;"><a href="javascript:none;" title="Right arrow or j" id="nextPanel"><i class="glyphicon glyphicon-chevron-right"></i> Next</a></li>
-							<li style="display: none;"><a href="javascript:none;" title="v key" id="fitVertical"><i class="fitVerticalButton glyphicon glyphicon-resize-vertical"></i> Fit Vertical</a></a></li>
-							<li style="display: none;"><a href="javascript:none;" title="h key" id="fitHorizontal"><i class="fitHorizontalButton glyphicon glyphicon-resize-horizontal"></i> Fit Horizontal</a></a></li>
-							<li style="display: none;"><a href="javascript:none;" title="b key" id="fitBoth"><i class="fitBothButton glyphicon glyphicon-move"></i> Fit Both</a></a></li>
-							<li style="display: none;"><a href="javascript:none;" title="f key" id="fullSpread"><i class="glyphicon glyphicon-pause"></i> Full Spread View</a></a></li>
-							<li style="display: none;"><a href="javascript:none;" title="s key" id="singlePage"><i class="glyphicon glyphicon-stop"></i> Single Page View</a></a></li>
-						</ul>
-                        <ul class = "nav navbar-nav navbar-right">
-                            <li><span class = "navbar-brand navbar-right">@name</span></li>
-                            <li><a class="navbar-brand navbar-right" href="/logout">Logout</a></li>
-                        </ul>
-					</div>
-				</div>
-			</div>
+            <div class="top-bar-container">
+                <div class="top-bar navbar navbar-inverse navbar-static-top hidden-xs hidden-sm hidden-md">
+                    <div class="navbar-inner">
+                        <div class="">
+                            <ul class = "nav navbar-nav">
+                                <li><a class="navbar-brand" href="/">Web Slinger Comic Reader</a></li>
+                                <li><a class="navbar-brand" href="#library">Library</a></li>
+                                <li><a class="navbar-brand" href="#addModal" data-toggle="modal">Add</a></li>
+                                <li><a class="navbar-brand" href="#users">Users</a></li>
+                                <li style="display: none;"><a href="javascript:none;" title="Left arrow or k" id="prevPanel"><span class="glyphicon glyphicon-chevron-right"></span> Previous</a></li>
+                                <li style="display: none;"><a href="javascript:none;" title="Right arrow or j" id="nextPanel"><i class="glyphicon glyphicon-chevron-right"></i> Next</a></li>
+                                <li style="display: none;"><a href="javascript:none;" title="v key" id="fitVertical"><i class="fitVerticalButton glyphicon glyphicon-resize-vertical"></i> Fit Vertical</a></a></li>
+                                <li style="display: none;"><a href="javascript:none;" title="h key" id="fitHorizontal"><i class="fitHorizontalButton glyphicon glyphicon-resize-horizontal"></i> Fit Horizontal</a></a></li>
+                                <li style="display: none;"><a href="javascript:none;" title="b key" id="fitBoth"><i class="fitBothButton glyphicon glyphicon-move"></i> Fit Both</a></a></li>
+                                <li style="display: none;"><a href="javascript:none;" id="hideTop"><i class="hideTopButton glyphicon glyphicon-fullscreen"></i> Hide Top Bar</a></a></li>
+                                <li style="display: none;"><a href="javascript:none;" id="toggleTapTarget"><i class="toggleTapTarget glyphicon glyphicon-th-large"></i> Toggle Tap Targets</a></a></li>
+                                <li style="display: none;"><a href="javascript:none;" title="f key" id="fullSpread"><i class="glyphicon glyphicon-pause"></i> Full Spread View</a></a></li>
+                                <li style="display: none;"><a href="javascript:none;" title="s key" id="singlePage"><i class="glyphicon glyphicon-stop"></i> Single Page View</a></a></li>
+                            </ul>
+                            <ul class = "nav navbar-nav navbar-right">
+                                <li><span class = "navbar-brand navbar-right">@name</span></li>
+                                <li><a class="navbar-brand navbar-right" href="/logout">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-			<div class="top-bar navbar navbar-inverse navbar-static-top visible-xs-block">
-				<div class="navbar-inner">
-					<div class="">
-					    <ul class = "nav navbar-nav">
-                            <li class="dropdown pull-left">
-                                <a class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                            aria-expanded="fales" href="#">
-                                    Web Slinger Comic Reader <span class=""caret"></span>
-                                </a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a class="" href="/">home</a></li>
-                                    <li><a class="" href="#library">Library</a></li>
-                                    <li><a class="" href="#addModal" data-toggle="modal">Add</a></li>
-                                    <li><a class="navbar-brand" href="#users">Users</a></li>
-                                    <li><a class="" href="/logout">Logout</a></li>
-                                </ul>
-                            </li>                            <li class="pull-left" style="display: none;"><a href="javascript:none;" title="v key" id="fitVerticalxs"><i class="fitVerticalButton glyphicon glyphicon-resize-vertical"></i></a></a></li>
-                            <li class="pull-left" style="display: none;"><a href="javascript:none;" title="h key" id="fitHorizontalxs"><i class="fitHorizontalButton glyphicon glyphicon-resize-horizontal"></i></a></a></li>
-                            <li class="pull-left" style="display: none;"><a href="javascript:none;" title="b key" id="fitBothxs"><i class="fitBothButton glyphicon glyphicon-move"></i></a></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-	
-			<div id="side-bar-container hidden-xs"></div>
+                <div class="top-bar navbar navbar-inverse navbar-static-top visible-xs-block visible-sm-block visible-md-block">
+                    <div class="navbar-inner">
+                        <div class="">
+                            <ul class = "nav navbar-nav">
+                                <li class="dropdown pull-left">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                                aria-expanded="fales" href="#">
+                                        <span class="hidden-xs">Web Slinger Comic Reader</span>
+                                        <span class="visible-xs"><i class="glyphicon glyphicon-menu-hamburger"></i> </span>
+                                        <span class=""caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a class="" href="/">home</a></li>
+                                        <li><a class="" href="#library">Library</a></li>
+                                        <li><a class="" href="#addModal" data-toggle="modal">Add</a></li>
+                                        <li><a class="navbar-brand" href="#users">Users</a></li>
+                                        <li><a class="" href="/logout">Logout</a></li>
+                                    </ul>
+                                </li>                            <li class="pull-left" style="display: none;"><a href="javascript:none;" title="v key" id="fitVerticalxs"><i class="fitVerticalButton glyphicon glyphicon-resize-vertical"></i></a></a></li>
+                                <li class="pull-left" style="display: none;"><a href="javascript:none;" title="h key" id="fitHorizontalxs"><i class="fitHorizontalButton glyphicon glyphicon-resize-horizontal"></i></a></a></li>
+                                <li class="pull-left" style="display: none;"><a href="javascript:none;" title="b key" id="fitBothxs"><i class="fitBothButton glyphicon glyphicon-move"></i></a></a></li>
+                                <li class="pull-left" style="display: none;"><a href="javascript:none;" title="h key" id="hideTopxs"><i class="hideTopButton glyphicon glyphicon-fullscreen"></i></a></a></li>
+                                <li class="pull-left" style="display: none;"><a href="javascript:none;" title="t key" id="toggleTapTargetxs"><i class="toggleTapTarget glyphicon glyphicon-th-large"></i></a></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-			<div class="action-bar hidden-xs" >
-				<div class="action-bar-nav">
-					<ul class = "nav action-bar-nav">
-						<li><a class="navbar-link" id="expand-side-bar">
-							<span class="expand-side-bar glyphicon glyphicon-circle-arrow-right"></span>
-							<span class="shrink-side-bar glyphicon glyphicon-circle-arrow-left"></span>
-						</a></li>
+            <div class = "touch-controls-container" id="touch-controls-container">
 
-					</ul>
-				</div>
-			</div>
+            </div>
 
-			<div class="scroll-container" >
+            <div class="scroll-container" >
                 <div class="container-fluid" id ="main-container">
 					    @content
                 </div>
