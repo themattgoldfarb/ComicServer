@@ -84,15 +84,25 @@ ReaderView = Backbone.Marionette.CompositeView.extend({
         $(item).bind('swiperight', function(){self.prevPanel(self);});
     },
 
+    scrollBottom: function(){
+        $('.scroll-container').scrollTop($('#main-container').height() - $('.scroll-container').height());
+    },
+
+    scrollTop: function(){
+        $('.scroll-container').scrollTop(0);
+    },
+
     nextPanel: function(self){
         if(self.currentPage<self.model.attributes.numPages){
             self.drawPanel(++self.currentPage);
+            self.scrollTop();
         }
     },
 
     prevPanel: function(self){
         if(self.currentPage>1){
             self.drawPanel(--self.currentPage);
+            self.scrollBottom();
         }
     },
 
