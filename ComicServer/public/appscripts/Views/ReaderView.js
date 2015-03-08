@@ -74,6 +74,7 @@ ReaderView = Backbone.Marionette.CompositeView.extend({
         touchControlsView.$('#fitBothButton').bind('toggle', function(){self.fitBoth();});
         touchControlsView.$('#fitVerticalButton').bind('toggle', function(){self.fitVertical();});
         touchControlsView.$('#fitHorizontalButton').bind('toggle', function(){self.fitHorizontal();});
+        $('.scroll-container').unbind('click');
         $('.scroll-container').bind('click', function(event){self.handleClick(event);});
     },
 
