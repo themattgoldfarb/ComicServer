@@ -25,6 +25,20 @@ public class User extends Model {
         this.password = password;
     }
 
+    public List<String> getRoles() {
+        List<UserInRole> userInRoles = User.find.fetch("userInRoles")
+                .where()
+                .ilike("email", email)
+                .findList()
+                .get(0)
+                .userInRoles;
+        List<String> roles = new ArrayList<>();
+        for (UserInRole uir : userInRoles) {
+            roles.add(uir.roleName);
+        }
+        return roles;
+    }
+
     public static User authenticate(String email, String password) {
         return find.where().eq("email", email)
                 .eq("password", password).findUnique();
