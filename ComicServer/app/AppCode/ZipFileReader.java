@@ -120,6 +120,16 @@ public class ZipFileReader{
         return f.exists();
     }
 
+    public File getBook(String path, String fileName){
+
+        File f = new File(path+"/"+fileName);
+        if(f.exists()){
+            return f;
+        }
+
+        return null;
+    }
+
     public InputStream GetPage(String path, String fileName, int pageId){
         InputStream is = null;
 
