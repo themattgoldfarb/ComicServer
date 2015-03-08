@@ -32,16 +32,22 @@ public class FileManager extends Controller {
         }
     }
 
+    @Security.Authenticated(Secured.class)
     public static Result rescan(){
-        ComicBooks books = new ComicBooks();
-        books.books = ComicBook.find.all();
-        ZipFileReader reader = new ZipFileReader();
-        for( ComicBook b : books.books){
-            if(!reader.bookExists(b.path, b.fileName)){
-                b.delete();
+        if(Secured.hasRole("fileAdministrator")) {
+            ComicBooks books = new ComicBooks();
+            books.books = ComicBook.find.all();
+            ZipFileReader reader = new ZipFileReader();
+            for( ComicBook b : books.books){
+                if(!reader.bookExists(b.path, b.fileName)){
+                    b.delete();
+                }
             }
+            return redirect(routes.Application.app());
         }
-        return redirect(routes.Application.app());
+        else{
+            return forbidden();
+        }
     }
 
     @Security.Authenticated(Secured.class)
