@@ -81,7 +81,8 @@ public class ZipFileReader{
 		String[] a = s.split("\\/");
 		return a[a.length-1];
 	}
-	
+
+
 	public InputStream GetPage(int zipId, int pageId){
 		File file = null;
 		Image image = null;
@@ -113,6 +114,11 @@ public class ZipFileReader{
 		
 		return is;	
 	}
+
+    public boolean bookExists(String path, String fileName){
+        File f = new File(path+"/"+fileName);
+        return f.exists();
+    }
 
     public InputStream GetPage(String path, String fileName, int pageId){
         InputStream is = null;

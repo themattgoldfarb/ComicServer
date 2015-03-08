@@ -25,10 +25,12 @@ GET         /thumbnail/$comicBookId<[0-9]+>/                   controllers.PageR
 #FileManager
 GET         /FileManager/path/:path/                           controllers.FileManager.readPath(path: String)
 POST        /FileManager/path/:path/                           controllers.FileManager.addPath(path: String)
+GET         /refreshLibrary                                     controllers.FileManager.rescan()
 
 #Users
-GET         /users                                              controllers.UserManager.users()
-
+GET         /users                                             controllers.UserManager.users()
+GET         /createUser                                        controllers.UserManager.createUser()
+POST        /addUser                                           controllers.UserManager.addUser()
 
 
 # Map static resources from the /public folder to the /assets URL path

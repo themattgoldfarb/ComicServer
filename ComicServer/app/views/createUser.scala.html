@@ -1,11 +1,12 @@
-@(form: Form[Application.Login])
+@(form: Form[UserManager.NewUser])
 
 
-    @main("Web Slinger Comic Reader", null, null){
+
+    @main("Web Slinger Comic Reader", null, null ){
 
     }{
-        @helper.form(routes.Application.authenticate) {
-            <h1>Sign in</h1>
+        @helper.form(routes.UserManager.addUser()) {
+            <h1>Create New User</h1>
             @if(form.hasGlobalErrors) {
                 <p class="error">
                 @form.globalError.message
@@ -22,10 +23,13 @@
                 <input type="email" name="email" placeholder="Email" value="@form("email").value">
             </p>
             <p>
+                <input type="text" name="name" placeholder="name" value="@form("name").value">
+            </p>
+            <p>
                 <input type="password" name="password" placeholder="Password">
             </p>
             <p>
-                <button type="submit">Login</button>
+                <button type="submit">Create</button>
             </p>
         }
     }
