@@ -25,6 +25,7 @@ app.showLibrary = function(options){
         collection: app.library
     });
     app.mainRegion.show(app.libraryView);
+    app.touchControlsRegion.reset();
 }
 
 app.showSideBar = function(options){
