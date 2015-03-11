@@ -1,19 +1,12 @@
 # --- !Ups
 
-create table user_in_role (
-  email varchar(255) not null,
-  role_name VARCHAR(255) not null,
-  CONSTRAINT pk_emailRoleName PRIMARY KEY (email, role_name),
-  foreign key fk_emailToUser (email)
-    references user(email),
-  foreign key fk_roleNameToRole(role_name)
-    references role(role_name)
-);
+insert into role(role_name) values
+  ('userAdministrator'),
+  ('fileAdministrator'),
+  ('reader')
+
 
 # --- !Downs
 
-SET REFERENTIAL_INTEGRITY FALSE;
+delete from role where role_name in ('userAdministrator', 'fileAdministrator', 'reader');
 
-drop table if exists user_in_role;
-
-SET REFERENTIAL_INTEGRITY TRUE;

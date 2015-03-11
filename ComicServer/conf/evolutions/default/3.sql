@@ -1,16 +1,14 @@
 # --- !Ups
 
-create table user (
-  email varchar(255),
-  name VARCHAR(255),
-  password VARCHAR(255),
-  CONSTRAINT pk_user PRIMARY KEY (email)
+create table role (
+  role_name VARCHAR(255) not null,
+  CONSTRAINT pk_roleName PRIMARY KEY (role_name)
 );
 
 # --- !Downs
 
 SET REFERENTIAL_INTEGRITY FALSE;
 
-drop table if exists user;
+drop table if exists role;
 
 SET REFERENTIAL_INTEGRITY TRUE;

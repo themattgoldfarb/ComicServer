@@ -23,15 +23,6 @@ import javax.imageio.ImageIO;
 
 public class ZipFileReader{
 	
-	private ArrayList<String> zips = new ArrayList<String>();
-	private String comicDir = "/home/matt/comics/";
-	
-	public ZipFileReader(){
-		//zips.add("/home/matt/comics/Amazing Spider-Man v1 #222.cbz");
-		zips = readDirectoryForZips(comicDir);
-		
-	}
-
     public FilesViewModel readDirectory(String dir){
         FilesViewModel viewModel = new FilesViewModel();
         viewModel.directory = dir;
@@ -42,7 +33,7 @@ public class ZipFileReader{
         try{
             Files.list(Paths.get(dir)).forEach(filePath -> {
                 if (Files.isDirectory(filePath)) {
-                    viewModel.directories.add(filePath.getFileName().toString()+"/");
+                    viewModel.directories.add(filePath.getFileName().toString() + "/");
                 } else if (Files.isRegularFile(filePath)) {
                     if(filePath.getFileName().toString().endsWith("cbz")) {
                         viewModel.files.add(filePath.getFileName().toString());
@@ -54,8 +45,8 @@ public class ZipFileReader{
         catch (IOException e){
 
         }
-        Collections.sort(viewModel.directories);
-        Collections.sort(viewModel.files);
+        Collections.sort(viewModel.directories, String.CASE_INSENSITIVE_ORDER);
+        Collections.sort(viewModel.files, String.CASE_INSENSITIVE_ORDER);
         return viewModel;
     }
 
@@ -80,39 +71,6 @@ public class ZipFileReader{
 	private String lastSplit(String s){
 		String[] a = s.split("\\/");
 		return a[a.length-1];
-	}
-
-
-	public InputStream GetPage(int zipId, int pageId){
-		File file = null;
-		Image image = null;
-		InputStream is = null;
-		
-		if(zips.size()<=zipId){
-			return null;	//throw new Exception("Invalid Zip Id");
-		}
-		
-		try {
-			File f = new File(zips.get(zipId));
-			if(zips.get(zipId).contains(".cbz")){
-				ZipFile zip = new ZipFile(f);
-				ZipEntry entry = null;
-				
-				for (Enumeration<? extends ZipEntry> e = zip.entries(); e.hasMoreElements() && pageId >= 0; pageId--){
-					entry = (ZipEntry) e.nextElement();
-					String entryName = entry.getName();	
-				}
-				image = ImageIO.read(zip.getInputStream(entry));
-				is = zip.getInputStream(entry);
-			}
-
-		} catch (ZipException e){
-			
-		} catch (IOException e){
-			
-		}
-		
-		return is;	
 	}
 
     public boolean bookExists(String path, String fileName){
