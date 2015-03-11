@@ -1,13 +1,16 @@
-# --- Sample dataset
-
 # --- !Ups
 
-insert into comic_book (id, file_Name, path, cover_index, series_name, issue_number) values
-    (1, 'Amazing Spider-Man v1 #222.cbz','/home/matt/comics', 1, 'Amazing Spider-Man', 222),
-    (2, 'Amazing Spider-Man v1 #223.cbz','/home/matt/comics', 1, 'Amazing Spider-Man', 223),
-    (3, 'Amazing Spider-Man v1 #224.cbz','/home/matt/comics', 2, 'Amazing Spider-Man', 224),
-    (4, 'Amazing Spider-Man v1 #225.cbz','/home/matt/comics', 3, 'Amazing Spider-Man', 225);
+create table user (
+  email varchar(255),
+  name VARCHAR(255),
+  password VARCHAR(255),
+  CONSTRAINT pk_user PRIMARY KEY (email)
+);
 
 # --- !Downs
 
-delete from comicBook;
+SET REFERENTIAL_INTEGRITY FALSE;
+
+drop table if exists user;
+
+SET REFERENTIAL_INTEGRITY TRUE;
