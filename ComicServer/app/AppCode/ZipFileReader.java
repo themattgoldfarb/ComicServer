@@ -12,7 +12,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
@@ -21,7 +23,18 @@ import javax.imageio.ImageIO;
 
 
 
+
 public class ZipFileReader{
+
+	private class ZipFileEntryComparator implements Comparator<ZipEntry> {
+	  public int compare(ZipEntry z1, ZipEntry z2) {
+	    return z1.getName().compareTo(z2.getName());
+	  }
+
+	  public boolean equals(ZipEntry z1, ZipEntry z2) {
+	    return z1.getName().equals(z2.getName());
+	  }
+	}
 	
     public FilesViewModel readDirectory(String dir){
         FilesViewModel viewModel = new FilesViewModel();
@@ -96,8 +109,11 @@ public class ZipFileReader{
             if(fileName.contains(".cbz")){
                 ZipFile zip = new ZipFile(f);
                 ZipEntry entry = null;
+		List<? extends ZipEntry> entries = Collections.list(zip.entries());
+		Collections.sort(entries, new ZipFileEntryComparator());
 
-                for (Enumeration<? extends ZipEntry> e = zip.entries(); e.hasMoreElements() && pageId >= 0; pageId--){
+                for (Enumeration<? extends ZipEntry> e = Collections.enumeration(entries); 
+			e.hasMoreElements() && pageId >= 0; pageId--){
                     entry =  e.nextElement();
                 }
                 is = zip.getInputStream(entry);
