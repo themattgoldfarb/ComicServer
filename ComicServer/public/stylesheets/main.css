@@ -1,5 +1,6 @@
 			html, body {
 			  font-family: "Open Sans", Helvetica, Arial, Sans-serif;
+              height: 100%
 			}
 			body {
 			  background: #171717 url('../images/html5_logo.png') no-repeat bottom right;
@@ -38,7 +39,7 @@
                 transform: rotate(270deg);
             }
 			.fitVertical {
-              position:absolute;
+              position: fixed;
 			  height: 100%;
 			  width: auto;
               max-height: 100%;
@@ -46,15 +47,21 @@
 
 			.spread2 .fitHorizontal {
 			  height: auto;
-			  width: 50%;        
+			  width: 50%;   
+              float: left;     
 			}
+            .spread2 .fitVertical {
+                float: left;
+                max-width:50%;
+                
+            }
 			.spread1 .fitHorizontal {
 			  height: auto;
 			  width: 100%;
 			}
 			
 			.fitBoth {
-              position:absolute;
+              position: fixed;
 			  width: auto;
 			  height: auto;
 			  max-height: 100%;
@@ -67,6 +74,7 @@
 			  }
 			  .spread2 .fitBoth {
 			    max-width: 50%;
+                float: left;
 			}
 			
 			.action-bar{

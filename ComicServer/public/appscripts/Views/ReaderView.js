@@ -4,6 +4,8 @@ ReaderView = Backbone.Marionette.CompositeView.extend({
     template: '#ReaderTemplate',
     itemView: PageView,
     currentPage: 1,
+    rotation: 0,
+    doublePage: false,
 
     initialize: function(){
                 var self = this;
@@ -74,6 +76,10 @@ ReaderView = Backbone.Marionette.CompositeView.extend({
         touchControlsView.$('#fitBothButton').bind('toggle', function(){self.fitBoth();});
         touchControlsView.$('#fitVerticalButton').bind('toggle', function(){self.fitVertical();});
         touchControlsView.$('#fitHorizontalButton').bind('toggle', function(){self.fitHorizontal();});
+        touchControlsView.$('#rotateCWButton').bind('toggle', function(){self.rotateCW();});
+        touchControlsView.$('#rotateCCWButton').bind('toggle', function(){self.rotateCCW();});
+        touchControlsView.$('#toggleDoublePage').bind('toggle', function(){self.toggleDoublePage();});
+        
         $('.scroll-container').unbind('click');
         $('.scroll-container').bind('click', function(event){self.handleClick(event);});
     },
@@ -95,39 +101,91 @@ ReaderView = Backbone.Marionette.CompositeView.extend({
 
     nextPanel: function(self){
         if(self.currentPage<self.model.attributes.numPages){
-            self.drawPanel(++self.currentPage);
+            self.currentPage += self.doublePage ? 2 : 1;
+            self.drawPanel(self.currentPage, self.doublePage);
             self.scrollTop();
         }
     },
 
     prevPanel: function(self){
         if(self.currentPage>1){
-            self.drawPanel(--self.currentPage);
+            self.currentPage -= self.doublePage ? 2 : 1;
+            self.drawPanel(self.currentPage, self.doublePage);
             self.scrollBottom();
         }
     },
 
-    drawPanel: function(id){
+    drawPanel: function(id, doublePage){
         this.currentPage=id;
         for(var i=0;i<this.model.attributes.numPages;i++){
             $('#page-'+i).hide();
         }
         $('#page-'+id).show();
+        if (doublePage) {
+            $('#page-'+(id+1)).show();
+        }
     },
 
     fitHorizontal: function() {
-      $("#comicImages img").removeClass();
+      $("#comicImages img").removeClass('fitVertical');
+      $("#comicImages img").removeClass('fitBoth');
       $("#comicImages img").addClass('fitHorizontal');
     },
 
     fitVertical: function() {
-      $("#comicImages img").removeClass();
+      $("#comicImages img").removeClass('fitHorizontal');
+      $("#comicImages img").removeClass('fitBoth');
       $("#comicImages img").addClass('fitVertical');
     },
 
     fitBoth: function() {
-      $("#comicImages img").removeClass();
+      $("#comicImages img").removeClass('fitHorizontal');
+      $("#comicImages img").removeClass('fitVertical');
       $("#comicImages img").addClass('fitBoth');
+    },
+
+    clearRotation: function() {
+        $("#comicImages img").removeClass('rotate90');
+        $("#comicImages img").removeClass('rotate180');
+        $("#comicImages img").removeClass('rotate270');
+    },
+
+    applyRotation: function(rot) {
+        switch (rot) {    
+            case 90 :
+                $("#comicImages img").addClass('rotate90');
+                break;
+            case 180 :
+                $("#comicImages img").addClass('rotate180');
+                break;
+            case 270 :
+                $("#comicImages img").addClass('rotate270');
+        }
+    },
+
+    rotateCW: function() {
+        var self = this;
+        console.log(self.rotation);
+        self.rotation = (self.rotation + 90) % 360;
+        self.clearRotation();
+        self.applyRotation(self.rotation);
+    },
+
+    rotateCCW: function() {
+        var self = this;
+        self.rotation = (self.rotation + 270) % 360;
+        console.log(self.rotation);
+        self.clearRotation();
+        self.applyRotation(self.rotation);
+    },
+
+    toggleDoublePage: function() {
+        var self = this;        
+        self.doublePage = !self.doublePage;
+        $("#comicImages").removeClass('spread1');
+        $("#comicImages").removeClass('spread2');
+        $("#comicImages").addClass(self.doublePage ? "spread2" : "spread1");
+        self.drawPanel(self.currentPage, self.doublePage);
     },
 
     hideTop: function() {
