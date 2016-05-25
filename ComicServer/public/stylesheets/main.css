@@ -21,6 +21,22 @@
 			#introText {
 			  margin-top: 100px;
 			}
+            .rotate90 {
+                -ms-transform: rotate(90deg);                
+                -webkit-transform: rotate(90deg);
+                transform: rotate(90deg);
+
+            }
+            .rotate180 {
+                -ms-transform: rotate(180deg);                
+                -webkit-transform: rotate(180deg);
+                transform: rotate(180deg);
+            }
+            .rotate270 {
+                -ms-transform: rotate(270deg);                
+                -webkit-transform: rotate(270deg);
+                transform: rotate(270deg);
+            }
 			.fitVertical {
               position:absolute;
 			  height: 100%;
